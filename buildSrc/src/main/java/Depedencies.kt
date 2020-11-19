@@ -4,9 +4,11 @@ object Versions {
     val androidxCore = "1.3.2"
     val appcompat = "1.2.0"
     val material = "1.2.1"
+    val lifecycle = "2.2.0"
     val constraintLayout = "2.0.4"
     val navigation = "2.3.1"
-    val retrofit = "1.6.0"
+    val retrofit = "2.9.0"
+    val koin = "2.2.0"
     //Test
     val junit = "4+"
     val androidxTesting = "1.1.2"
@@ -23,10 +25,14 @@ object Dependencies {
     val navigation = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
     val navigationUi = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
     val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+    val gsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
+    val koin = "org.koin:koin-core:${Versions.koin}"
+    val lifecycle = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
 }
 
 object TestDependencies {
     val junit = "junit:junit:${Versions.junit}"
     val androidxTesting = "androidx.test.ext:junit:${Versions.androidxTesting}"
     val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
+    val koin = "org.koin:koin-test:${Versions.koin}"
 }
