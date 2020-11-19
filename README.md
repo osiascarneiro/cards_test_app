@@ -1,2 +1,2 @@
-# cards_test_app
+# Cartões
 Projeto teste de cartões
