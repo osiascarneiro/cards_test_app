@@ -1,0 +1,6 @@
+include ':features:accountDetails'
+include ':features:cardDetails'
+include ':features:home'
+include ':actions'
+include ':app'
+rootProject.name = "Cards"
