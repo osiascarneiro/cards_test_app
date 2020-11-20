@@ -6,16 +6,37 @@ plugins {
 
 android {
     compileSdkVersion 30
+    defaultConfig {
+        minSdkVersion 21
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
-    implementation project("::actions")
-
     implementation Dependencies.kotlinStandardLibrary
     implementation Dependencies.androidxCore
     implementation Dependencies.appCompat
     implementation Dependencies.material
+    implementation Dependencies.lifecycle
+    implementation Dependencies.viewModelLifecycle
+    implementation Dependencies.navigation
+    implementation Dependencies.navigationUi
+    implementation Dependencies.constraintLayout
+
+    implementation Dependencies.retrofit
+    implementation Dependencies.gsonConverter
+    implementation Dependencies.koin
+    implementation Dependencies.koinViewModel
+
     testImplementation TestDependencies.junit
     androidTestImplementation TestDependencies.androidxTesting
     androidTestImplementation TestDependencies.espresso
+
+
 }
