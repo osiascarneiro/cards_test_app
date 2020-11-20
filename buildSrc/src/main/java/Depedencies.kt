@@ -26,8 +26,10 @@ object Dependencies {
     val navigationUi = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
     val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     val gsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
-    val koin = "org.koin:koin-core:${Versions.koin}"
+    val koin = "org.koin:koin-android:${Versions.koin}"
+    val koinViewModel = "org.koin:koin-android-viewmodel:${Versions.koin}"
     val lifecycle = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
+    val viewModelLifecycle = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
 }
 
 object TestDependencies {
