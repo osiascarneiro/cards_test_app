@@ -1,6 +1,8 @@
 package cards.features.home.view.widgets
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import cards.features.home.R
@@ -24,6 +26,9 @@ class HomeCardView(val widget: Widget, context: Context): FrameLayout(context) {
         this.cardName.text = cardContent.title
         this.cardNumber.text = cardContent.cardNumber
         actionButton.text = cardContent.button.title
+        actionButton.setOnClickListener {
+            cardContent.button.action?.intent(context)?.let { context.startActivity(it) }
+        }
     }
 
 }

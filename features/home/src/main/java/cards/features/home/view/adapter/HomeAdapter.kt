@@ -19,6 +19,13 @@ class HomeAdapter(var widgets: List<Widget>): RecyclerView.Adapter<HomeAdapter.H
 
     override fun getItemCount(): Int = widgets.count()
 
-    inner class HomeViewHolder(val view: FrameLayout): RecyclerView.ViewHolder(view)
+    inner class HomeViewHolder(val view: FrameLayout): RecyclerView.ViewHolder(view) {
+        init {
+            view.layoutParams = FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+        }
+    }
 
 }
