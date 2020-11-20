@@ -11,14 +11,9 @@ import cards.features.home.model.HeaderContent
 import cards.features.home.model.Widget
 import kotlinx.android.synthetic.main.home_header_view.view.*
 
-class HomeHeaderView(val widget: Widget, context: Context): FrameLayout(context) {
+class HomeHeaderView(widget: Widget, context: Context): BaseWidget(widget, context) {
 
-    init {
-        layoutParams = LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-        buildTextView()
-    }
-
-    private fun buildTextView() {
+    override fun buildView(widget: Widget) {
         inflate(context, R.layout.home_header_view, this)
         val header = HeaderContent.fromMap(widget.content)
         titleText.text = header.title

@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import cards.features.home.model.Widget
 import cards.features.home.model.WidgetType
+import cards.features.home.view.widgets.HomeAccountView
 import cards.features.home.view.widgets.HomeCardView
 import cards.features.home.view.widgets.HomeHeaderView
 
@@ -18,7 +19,7 @@ object WidgetFactory {
                 HomeCardView(widget, context)
             }
             WidgetType.HOME_STATEMENT -> {
-                View(context)
+                HomeAccountView(widget, context)
             }
             else -> {
                 //Widget not supported

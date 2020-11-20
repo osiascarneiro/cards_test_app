@@ -10,17 +10,9 @@ import cards.features.home.model.CardContent
 import cards.features.home.model.Widget
 import kotlinx.android.synthetic.main.home_card_view.view.*
 
-class HomeCardView(val widget: Widget, context: Context): FrameLayout(context) {
+class HomeCardView(widget: Widget, context: Context): BaseWidget(widget, context) {
 
-    init {
-        layoutParams = LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        buildView()
-    }
-
-    private fun buildView() {
+    override fun buildView(widget: Widget) {
         inflate(context, R.layout.home_card_view, this)
         val cardContent = CardContent.fromMap(widget.content)
         this.cardName.text = cardContent.title

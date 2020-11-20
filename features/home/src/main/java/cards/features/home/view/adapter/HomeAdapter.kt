@@ -14,6 +14,7 @@ class HomeAdapter(var widgets: List<Widget>): RecyclerView.Adapter<HomeAdapter.H
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         val widget = widgets[position]
+        holder.view.removeAllViews()
         holder.view.addView(WidgetFactory.getWidget(widget, holder.view.context))
     }
 
