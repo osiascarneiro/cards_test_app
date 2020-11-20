@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Widget(
     @SerializedName("identifier")
-    val identifier: String,
+    val identifier: WidgetType?,
     @SerializedName("content")
-    val content: String
+    val content: Map<String,Any>
 )
