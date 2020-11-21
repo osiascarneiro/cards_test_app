@@ -19,6 +19,8 @@ android {
 }
 
 dependencies {
+    implementation project("::actions")
+
     implementation Dependencies.kotlinStandardLibrary
     implementation Dependencies.androidxCore
     implementation Dependencies.appCompat
