@@ -3,7 +3,14 @@
     package="cards.features.accountdetails">
 
     <application>
-
+        <activity android:name=".view.AccountActivity"
+            android:label="@string/module_title"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+            <intent-filter>
+                <action android:name="com.osias.cards.accountDetails.open" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
