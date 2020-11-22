@@ -7,6 +7,6 @@ import cards.features.accountdetails.model.AccountDetail
 interface AccountRepositoryInterface {
 
     fun getLiveData(): LiveData<ApiResult<AccountDetail>>
-    fun getAccountDetail(accountId: String)
+    suspend fun getAccountDetail(accountId: String)
 
 }
