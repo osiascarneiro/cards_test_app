@@ -1,5 +1,7 @@
 package cards.features.home.di
 
+import cards.core.di.RetrofitBuilder
+import cards.features.home.networking.HomeService
 import cards.features.home.networking.WidgetRepository
 import cards.features.home.networking.WidgetRepositoryInterface
 import cards.features.home.viewmodel.HomeViewModel
@@ -8,7 +10,7 @@ import org.koin.dsl.binds
 import org.koin.dsl.module
 
 val module = module {
-    single { RetrofitBuilder.buildRetrofitService() }
+    single { RetrofitBuilder.buildRetrofitService(HomeService::class.java) }
     factory { WidgetRepository(get()) } binds arrayOf(WidgetRepositoryInterface::class)
     viewModel { HomeViewModel(get()) }
 }

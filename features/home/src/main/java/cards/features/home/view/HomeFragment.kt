@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import cards.core.model.ApiResult
 import cards.features.home.R
 import cards.features.home.view.adapter.HomeAdapter
 import cards.features.home.viewmodel.HomeViewModel
@@ -27,7 +28,18 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         homeViewModel.widgetsLiveData.observe(requireActivity(), {
-            adapter.widgets = it.widgets
+            when(it) {
+                is ApiResult.Failure -> {
+                    errorText.visibility = View.VISIBLE
+                    errorText.text = it.error.message
+                }
+                is ApiResult.Loading -> {
+                    loadingBar.visibility = if(it.loading) View.VISIBLE else View.GONE
+                }
+                is ApiResult.Success -> {
+                    adapter.widgets = it.result.widgets
+                }
+            }
             adapter.notifyDataSetChanged()
         })
         widgetList.adapter = adapter
