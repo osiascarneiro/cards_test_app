@@ -6,11 +6,11 @@ import cards.features.carddetails.networking.CardRepositoryInterface
 import cards.features.carddetails.networking.CardService
 import cards.features.carddetails.viewmodel.CardViewModel
 import org.koin.android.viewmodel.dsl.viewModel
-import org.koin.dsl.binds
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val module = module {
     single { RetrofitBuilder.buildRetrofitService(CardService::class.java) }
-    factory { CardRepository(get()) } binds arrayOf(CardRepositoryInterface::class)
+    factory { CardRepository(get()) } bind CardRepositoryInterface::class
     viewModel { CardViewModel(get()) }
 }

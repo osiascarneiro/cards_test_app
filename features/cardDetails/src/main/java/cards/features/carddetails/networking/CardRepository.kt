@@ -12,7 +12,7 @@ class CardRepository(
     private val service: CardService
 ): CardRepositoryInterface {
 
-    val data: LiveData<ApiResult<CardDetails>> = MutableLiveData()
+    private val data: LiveData<ApiResult<CardDetails>> = MutableLiveData()
 
     override fun getLiveData(): LiveData<ApiResult<CardDetails>> = data
 

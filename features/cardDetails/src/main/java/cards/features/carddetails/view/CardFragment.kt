@@ -15,12 +15,12 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class CardFragment : Fragment() {
 
-    private val homeViewModel: CardViewModel by viewModel()
+    private val cardViewModel: CardViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        homeViewModel.cardLiveData.observe(requireActivity(), {
+        cardViewModel.cardLiveData.observe(requireActivity(), {
             when(it) {
                 is ApiResult.Failure -> {
                     errorText.visibility = View.VISIBLE
@@ -41,7 +41,7 @@ class CardFragment : Fragment() {
     private fun extractArguments() {
         activity?.intent?.apply {
             val cardId = this.getStringExtra(Actions.CARD_ID_EXTRA)
-            homeViewModel.cardId = cardId
+            cardViewModel.cardId = cardId
         }
     }
 
