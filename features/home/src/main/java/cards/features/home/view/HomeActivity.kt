@@ -17,16 +17,18 @@ class HomeActivity: AppCompatActivity(), KoinComponent {
         const val TEST_EXTRA = "test_extra_key"
     }
 
+    private val isTest: Boolean
+        get() = intent.getBooleanExtra(TEST_EXTRA, false)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
-        val test = intent.getBooleanExtra(TEST_EXTRA, false)
-        if(!test) loadKoinModules(module)
+        if(!isTest) loadKoinModules(module)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        unloadKoinModules(module)
+        if(!isTest) unloadKoinModules(module)
     }
 
 }
