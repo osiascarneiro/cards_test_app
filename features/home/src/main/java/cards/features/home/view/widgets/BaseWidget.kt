@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import cards.features.home.model.Widget
 
-abstract class BaseWidget(private val widget: Widget, context: Context): FrameLayout(context) {
+abstract class BaseWidget(widget: Widget, context: Context): FrameLayout(context) {
 
     init {
         layoutParams = LayoutParams(
