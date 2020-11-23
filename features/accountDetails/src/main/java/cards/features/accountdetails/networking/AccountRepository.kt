@@ -1,24 +1,21 @@
 package cards.features.accountdetails.networking
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import cards.core.model.ApiResult
 import cards.features.accountdetails.model.AccountDetail
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class AccountRepository(
-    private val service: AccountService
+    private val service: AccountService,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ): AccountRepositoryInterface {
 
-    private val data: LiveData<ApiResult<AccountDetail>> = MutableLiveData()
-
-    override fun getLiveData(): LiveData<ApiResult<AccountDetail>> = data
-
-    override suspend fun getAccountDetail(accountId: String) {
-        (data as MutableLiveData).value = ApiResult.Loading(true)
+    override suspend fun getAccountDetail(accountId: String): ApiResult<AccountDetail> = withContext(dispatcher) {
         val response = service.getAccountDetail(accountId)
-        data.value = ApiResult.Loading(false)
-        if(response.code() != 200) { data.value = ApiResult.Failure(Error(response.errorBody()?.string())) }
-        else { response.body()?.let { data.value = ApiResult.Success(it) } }
+        if(response.code() != 200) { return@withContext ApiResult.Failure(Error(response.errorBody()?.string())) }
+        else { response.body()?.let { return@withContext ApiResult.Success(it) } }
+        ApiResult.Failure(Error("Erro desconhecido"))
     }
 
 }

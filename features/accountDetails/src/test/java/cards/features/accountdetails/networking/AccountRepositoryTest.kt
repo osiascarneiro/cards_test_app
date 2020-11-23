@@ -38,9 +38,8 @@ class AccountRepositoryTest {
         val returns = Response.success(account)
         coEvery { service.getAccountDetail(accountId) } returns returns
         //When
-        runBlocking { sut.getAccountDetail(accountId) }
+        val data = runBlocking { sut.getAccountDetail(accountId) }
         //Then
-        val data = sut.getLiveData().getOrAwaitValue()
         assert(data is ApiResult.Success)
         assert((data as ApiResult.Success).result === account)
     }
@@ -52,9 +51,8 @@ class AccountRepositoryTest {
         val returns = Response.error<AccountDetail>(404, ResponseBody.create(MediaType.get("application/json"), "Error in getting account"))
         coEvery { service.getAccountDetail(accountId) } returns returns
         //When
-        runBlocking { sut.getAccountDetail(accountId) }
+        val data = runBlocking { sut.getAccountDetail(accountId) }
         //Then
-        val data = sut.getLiveData().getOrAwaitValue()
         assert(data is ApiResult.Failure)
         assert((data as ApiResult.Failure).error.message == "Error in getting account")
     }
