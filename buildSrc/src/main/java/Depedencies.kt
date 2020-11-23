@@ -16,6 +16,7 @@ object Versions {
     const val mockk = "1.10.2"
     const val coroutinesCore = "1.4.1"
     const val archCore = "2.1.0"
+    const val androidxTest = "1.1.0"
 }
 object Dependencies {
     const val kotlinStandardLibrary = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
@@ -38,6 +39,8 @@ object Dependencies {
 object TestDependencies {
     const val junit = "junit:junit:${Versions.junit}"
     const val androidxTesting = "androidx.test.ext:junit:${Versions.androidxTesting}"
+    const val androidxTestRunner = "androidx.test:runner:${Versions.androidxTest}"
+    const val androidxTestRule = "androidx.test:rules:${Versions.androidxTest}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
     const val koin = "org.koin:koin-test:${Versions.koin}"
     const val mockk = "io.mockk:mockk:${Versions.mockk}"
