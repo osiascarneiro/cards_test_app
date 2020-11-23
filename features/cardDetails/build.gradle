@@ -38,6 +38,10 @@ dependencies {
     implementation Dependencies.koinViewModel
 
     testImplementation TestDependencies.junit
+    testImplementation TestDependencies.mockk
+    testImplementation TestDependencies.coroutinesCoreSupport
+    testImplementation TestDependencies.coroutinesTest
+    testImplementation TestDependencies.archCore
     androidTestImplementation TestDependencies.androidxTesting
     androidTestImplementation TestDependencies.espresso
 
