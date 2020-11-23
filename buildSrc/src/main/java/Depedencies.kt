@@ -41,6 +41,7 @@ object TestDependencies {
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
     const val koin = "org.koin:koin-test:${Versions.koin}"
     const val mockk = "io.mockk:mockk:${Versions.mockk}"
-    const val mockkCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutinesCore}"
+    const val coroutinesCoreSupport = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutinesCore}"
+    const val coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutinesCore}"
     const val archCore = "androidx.arch.core:core-testing:${Versions.archCore}"
 }
