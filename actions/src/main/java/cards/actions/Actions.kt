@@ -12,5 +12,5 @@ object Actions {
     fun openCardDetails(context: Context, cardId: String) = internalIntent(context, "com.osias.cards.cardDetails.open").putExtra(CARD_ID_EXTRA, cardId)
     fun openAccountDetails(context: Context, accountId: String) = internalIntent(context, "com.osias.cards.accountDetails.open").putExtra(ACCOUNT_ID_EXTRA, accountId)
 
-    fun internalIntent(context: Context, action: String) = Intent(action).setPackage(context.packageName)
+    private fun internalIntent(context: Context, action: String) = Intent(action).setPackage(context.packageName)
 }
