@@ -33,7 +33,7 @@ object CustomMatchers {
         val hasChild = view is ViewGroup
         if(result) return true
         if(!result && hasChild) {
-            for (i in 0..(view as ViewGroup).childCount) {
+            for (i in 0 until (view as ViewGroup).childCount) {
                 val resultChild = checkDescendant(view[i], itemMatcher)
                 if(resultChild) return true
             }

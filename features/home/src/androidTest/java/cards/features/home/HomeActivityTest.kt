@@ -13,6 +13,11 @@ import androidx.test.filters.LargeTest
 import cards.features.home.util.CustomMatchers.atPosition
 import cards.features.home.util.CustomMatchers.withItemCount
 import cards.features.home.view.HomeActivity
+import cards.features.home.view.widgets.HomeAccountView
+import cards.features.home.view.widgets.HomeCardView
+import cards.features.home.view.widgets.HomeHeaderView
+import org.hamcrest.Matchers.instanceOf
+import org.hamcrest.core.AllOf.allOf
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -49,10 +54,22 @@ class HomeActivityTest {
 
     @Test
     fun testSuccessWithComplete3Itens() {
-        onView(withId(R.id.loadingBar)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
-        onView(withId(R.id.errorText)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
+        //Loading and error gone
+        onView(withId(R.id.loadingBar)).check(matches(withEffectiveVisibility(Visibility.GONE)))
+        onView(withId(R.id.errorText)).check(matches(withEffectiveVisibility(Visibility.GONE)))
+        //3 itens in list
         onView(withId(R.id.widgetList)).check(matches(withItemCount(3)))
+        //Header view
+        onView(withId(R.id.widgetList)).check(matches(atPosition(1, allOf(instanceOf(HomeHeaderView::class.java)))))
         onView(withId(R.id.widgetList)).check(matches(atPosition(1, withText("mock title"))))
+        //Card view
+        onView(withId(R.id.widgetList)).check(matches(atPosition(0, allOf(instanceOf(HomeCardView::class.java)))))
+        onView(withId(R.id.widgetList)).check(matches(atPosition(0, withText("mock card title"))))
+        onView(withId(R.id.widgetList)).check(matches(atPosition(0, withText("mock card number"))))
+        onView(withId(R.id.widgetList)).check(matches(atPosition(0, withText("mock card details"))))
+        //Account view
+        onView(withId(R.id.widgetList)).check(matches(atPosition(2, allOf(instanceOf(HomeAccountView::class.java)))))
+        onView(withId(R.id.widgetList)).check(matches(atPosition(2, withText("mock account title"))))
     }
 
 }
