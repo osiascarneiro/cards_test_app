@@ -15,6 +15,9 @@ class HomeRobot: BaseRobot() {
     fun checkLoadingGone() = checkVisibilityWithId(R.id.loadingBar, ViewMatchers.Visibility.GONE)
     fun checkErrorGone() = checkVisibilityWithId(R.id.errorText, ViewMatchers.Visibility.GONE)
 
+    fun checkErrorVisible() = checkVisibilityWithId(R.id.errorText, ViewMatchers.Visibility.VISIBLE)
+    fun checkErrorText() = checkText(R.id.errorText, "Error in getting widgets")
+
     fun check3ItemsInList() = checkNumberOfItensInList(R.id.widgetList, 3)
 
     fun checkHomeHeaderViewInSecondPosition() = checkInstaceTypeInPosition(R.id.widgetList, 1, HomeHeaderView::class.java)

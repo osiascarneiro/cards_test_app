@@ -7,6 +7,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import cards.features.home.di.mockErrorModule
 import cards.features.home.di.mockModule
 import cards.features.home.view.HomeActivity
 import org.junit.After
@@ -59,6 +60,18 @@ class HomeActivityTest {
             checkSaldoInThirdPosition()
             checkValueInThirdPosition()
             checkMockAccountDetailsInThirdPosition()
+        }
+    }
+
+    @Test
+    fun testFailure() {
+        loadKoinModules(mockErrorModule)
+        ActivityScenario.launch<HomeActivity>(intent)
+        home {
+            checkLoadingGone()
+
+            checkErrorVisible()
+            checkErrorText()
         }
     }
 
