@@ -7,10 +7,12 @@ import androidx.core.content.ContextCompat
 import cards.features.carddetails.R
 import cards.features.carddetails.di.module
 import kotlinx.android.synthetic.main.activity_card.*
+import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.KoinComponent
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.unloadKoinModules
 
+@KoinApiExtension
 class CardActivity : AppCompatActivity(), KoinComponent {
 
     override fun onCreate(savedInstanceState: Bundle?) {

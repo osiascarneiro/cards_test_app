@@ -7,10 +7,14 @@ import androidx.core.content.ContextCompat
 import cards.features.accountdetails.R
 import cards.features.accountdetails.di.module
 import kotlinx.android.synthetic.main.activity_account.*
+import org.koin.core.component.KoinApiExtension
+import org.koin.core.component.KoinComponent
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.unloadKoinModules
 
-class AccountActivity : AppCompatActivity() {
+@KoinApiExtension
+class AccountActivity : AppCompatActivity(), KoinComponent {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account)

@@ -9,7 +9,6 @@ import androidx.test.espresso.matcher.BoundedMatcher
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 
-
 object CustomMatchers {
 
     fun atPosition(position: Int, itemMatcher: Matcher<View?>): Matcher<View?> {
