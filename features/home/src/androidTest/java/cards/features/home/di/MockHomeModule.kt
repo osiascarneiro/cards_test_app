@@ -8,6 +8,6 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val mockModule = module {
-    viewModel(override = true) { HomeViewModel(get()) }
-    factory(override = true) { MockWidgetRepository() } bind WidgetRepositoryInterface::class
+    viewModel { HomeViewModel(get()) }
+    factory { MockWidgetRepository() } bind WidgetRepositoryInterface::class
 }
