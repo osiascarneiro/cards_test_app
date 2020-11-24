@@ -1,7 +1,7 @@
 package cards.features.home.viewmodel
 
 import cards.core.model.RequestState
-import cards.core.test.base.BaseUnitTest
+import cards.core.test.base.BaseTest
 import cards.core.test.rule.MainCoroutineRule
 import cards.core.test.util.getOrAwaitValue
 import cards.features.home.data.HomeRepositoryInterface
@@ -12,7 +12,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Rule
 import org.junit.Test
 
-class HomeViewModelTest: BaseUnitTest() {
+class HomeViewModelTest: BaseTest() {
 
     @ExperimentalCoroutinesApi
     @get:Rule

@@ -1,7 +1,7 @@
 package cards.features.accountdetails.data
 
 import cards.core.model.RequestState
-import cards.core.test.base.BaseUnitTest
+import cards.core.test.base.BaseTest
 import cards.features.accountdetails.mock.AccountMocks
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -9,7 +9,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 
-class AccountRepositoryTest: BaseUnitTest() {
+class AccountRepositoryTest: BaseTest() {
 
     lateinit var sut: AccountRepository
     private val service = mockk<AccountService>()

@@ -1,7 +1,7 @@
 package cards.features.accountdetails.viewmodel
 
 import cards.core.model.RequestState
-import cards.core.test.base.BaseUnitTest
+import cards.core.test.base.BaseTest
 import cards.core.test.rule.MainCoroutineRule
 import cards.core.test.util.getOrAwaitValue
 import cards.features.accountdetails.data.AccountRepositoryInterface
@@ -13,7 +13,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class AccountViewModelTest: BaseUnitTest() {
+class AccountViewModelTest: BaseTest() {
 
     @ExperimentalCoroutinesApi
     @get:Rule
