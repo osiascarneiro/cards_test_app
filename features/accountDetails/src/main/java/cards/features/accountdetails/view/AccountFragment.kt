@@ -60,7 +60,7 @@ class AccountFragment : Fragment() {
 
     private fun extractArguments() {
         activity?.intent?.apply {
-            val cardId = this.getStringExtra(Actions.ACCOUNT_ID_EXTRA)
+            val cardId = getStringExtra(Actions.ACCOUNT_ID_EXTRA)
             accountViewModel.accountId = cardId
         }
     }

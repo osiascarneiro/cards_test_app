@@ -8,6 +8,7 @@ android {
     compileSdkVersion 30
     defaultConfig {
         minSdkVersion 21
+        testInstrumentationRunner "cards.features.accountdetails.KoinTestRunner"
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -15,6 +16,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    packagingOptions {
+        exclude 'META-INF/AL2.0'
+        exclude 'META-INF/LGPL2.1'
     }
 }
 

@@ -11,7 +11,6 @@ import cards.core.test.util.BaseRobot
 fun home(func: HomeRobot.() -> Unit) = HomeRobot().apply { func() }
 
 class HomeRobot: BaseRobot() {
-    //Reutilizable private methods
 
     fun checkLoadingGone() = checkVisibilityWithId(R.id.loadingBar, ViewMatchers.Visibility.GONE)
     fun checkErrorGone() = checkVisibilityWithId(R.id.errorText, ViewMatchers.Visibility.GONE)

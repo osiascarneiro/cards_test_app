@@ -15,16 +15,24 @@ import org.koin.core.context.unloadKoinModules
 @KoinApiExtension
 class AccountActivity : AppCompatActivity(), KoinComponent {
 
+    companion object {
+        //used to inject mock modules in test
+        const val TEST_EXTRA = "test_extra_key"
+    }
+
+    private val isTest: Boolean
+        get() = intent.getBooleanExtra(TEST_EXTRA, false)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account)
         configureActionBar()
-        loadKoinModules(module)
+        if(!isTest) loadKoinModules(module)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        unloadKoinModules(module)
+        if(!isTest) unloadKoinModules(module)
     }
 
     private fun obtainBackDrawable(): Drawable? {
