@@ -42,11 +42,6 @@ class HomeActivityTest {
     @get:Rule
     val activityRule = ActivityScenarioRule<HomeActivity>(intent)
 
-    @Before
-    fun setup() {
-
-    }
-
     @After
     fun tearDown() {
         activityRule.scenario.close()
@@ -54,25 +49,27 @@ class HomeActivityTest {
 
     @Test
     fun testSuccessWithComplete3Itens() {
-        //Loading and error gone
-        onView(withId(R.id.loadingBar)).check(matches(withEffectiveVisibility(Visibility.GONE)))
-        onView(withId(R.id.errorText)).check(matches(withEffectiveVisibility(Visibility.GONE)))
-        //3 itens in list
-        onView(withId(R.id.widgetList)).check(matches(withItemCount(3)))
-        //Header view
-        onView(withId(R.id.widgetList)).check(matches(atPosition(1, allOf(instanceOf(HomeHeaderView::class.java)))))
-        onView(withId(R.id.widgetList)).check(matches(atPosition(1, withText("mock title"))))
-        //Card view
-        onView(withId(R.id.widgetList)).check(matches(atPosition(0, allOf(instanceOf(HomeCardView::class.java)))))
-        onView(withId(R.id.widgetList)).check(matches(atPosition(0, withText("mock card title"))))
-        onView(withId(R.id.widgetList)).check(matches(atPosition(0, withText("mock card number"))))
-        onView(withId(R.id.widgetList)).check(matches(atPosition(0, withText("mock card details"))))
-        //Account view
-        onView(withId(R.id.widgetList)).check(matches(atPosition(2, allOf(instanceOf(HomeAccountView::class.java)))))
-        onView(withId(R.id.widgetList)).check(matches(atPosition(2, withText("mock account title"))))
-        onView(withId(R.id.widgetList)).check(matches(atPosition(2, withText("Saldo"))))
-        onView(withId(R.id.widgetList)).check(matches(atPosition(2, withText("R$ 50,00"))))
-        onView(withId(R.id.widgetList)).check(matches(atPosition(2, withText("mock account details"))))
+        home {
+            //Loading and error gone
+            checkLoadingGone()
+            checkErrorGone()
+            //3 itens in list
+            check3ItemsInList()
+            //Header view
+            checkHomeHeaderViewInSecondPosition()
+            checkMockTitleInSecondPosition()
+            //Card view
+            checkHomeCardViewInFirstPosition()
+            checkMockCardTitleInFirstPosition()
+            checkMockCardNumberInFirstPosition()
+            checkMockCardDetailsInFirstPosition()
+            //Account view
+            checkHomeAccountViewInThirdPosition()
+            checkMockAccountTitleInThirdPosition()
+            checkSaldoInThirdPosition()
+            checkValueInThirdPosition()
+            checkMockAccountDetailsInThirdPosition()
+        }
     }
 
     @Test
