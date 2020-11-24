@@ -1,4 +1,4 @@
-package cards.features.accountdetails
+package cards.core.test.util
 
 import android.app.Application
 import android.content.Context

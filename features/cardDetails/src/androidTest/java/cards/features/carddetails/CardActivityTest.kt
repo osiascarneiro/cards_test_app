@@ -1,16 +1,15 @@
-package cards.features.accountdetails
+package cards.features.carddetails
 
 import android.content.Intent
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import cards.actions.Actions
-import cards.features.accountdetails.di.errorMockModule
-import cards.features.accountdetails.di.mockModule
-import cards.features.accountdetails.view.AccountActivity
+import cards.features.carddetails.di.mockErrorModule
+import cards.features.carddetails.di.mockModule
+import cards.features.carddetails.view.CardActivity
 import org.junit.After
 import org.junit.Rule
 import org.junit.Test
@@ -20,48 +19,47 @@ import org.koin.core.context.unloadKoinModules
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
-class AccountActivityTest {
+class CardActivityTest {
 
     @Rule
     @JvmField
     val instantExecutorRule = InstantTaskExecutorRule()
 
-    private val intent = Intent(ApplicationProvider.getApplicationContext(), AccountActivity::class.java). apply {
-        putExtra(AccountActivity.TEST_EXTRA, true)
-        putExtra(Actions.ACCOUNT_ID_EXTRA, "0")
+    private val intent = Intent(ApplicationProvider.getApplicationContext(), CardActivity::class.java). apply {
+        putExtra(CardActivity.TEST_EXTRA, true)
+        putExtra(Actions.CARD_ID_EXTRA, "0")
     }
 
-    private var scenario: ActivityScenario<AccountActivity>? = null
+    private var scenario: ActivityScenario<CardActivity>? = null
 
     @After
     fun tearDown() {
         scenario?.close()
         unloadKoinModules(mockModule)
-        unloadKoinModules(errorMockModule)
+        unloadKoinModules(mockErrorModule)
     }
 
     @Test
-    fun testSuccessWithCardData() {
+    fun testWithCardData() {
         loadKoinModules(mockModule)
         scenario = ActivityScenario.launch(intent)
-        account {
+        cardRobot {
             checkLoadingGone()
             checkErrorGone()
 
-            checkSixItemsInTransactionList()
-
-            checkLabelBalanceTitleText()
-            checkLabelBalanceValueText()
-
-            validateValuesInTransactionList()
+            checkCardNumber()
+            checkCardName()
+            checkCardExpiration()
+            checkAvailableLimit()
+            checkTotalLimit()
         }
     }
 
     @Test
-    fun testFailure() {
-        loadKoinModules(errorMockModule)
+    fun testWithError() {
+        loadKoinModules(mockErrorModule)
         scenario = ActivityScenario.launch(intent)
-        account {
+        cardRobot {
             checkLoadingGone()
             checkErrorVisible()
 

@@ -19,10 +19,11 @@ android {
 
 dependencies {
 
-    api Dependencies.androidxCore
-    api Dependencies.material
+    implementation Dependencies.androidxCore
+    implementation Dependencies.material
+    implementation Dependencies.koin
 
-    api TestDependencies.coroutinesCoreSupport
-    api TestDependencies.coroutinesTest
-    api TestDependencies.espresso
+    implementation TestDependencies.coroutinesCoreSupport
+    implementation TestDependencies.coroutinesTest
+    implementation TestDependencies.espresso
 }

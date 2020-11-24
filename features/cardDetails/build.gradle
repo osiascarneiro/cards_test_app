@@ -8,6 +8,7 @@ android {
     compileSdkVersion 30
     defaultConfig {
         minSdkVersion 21
+        testInstrumentationRunner "cards.core.test.util.KoinTestRunner"
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
