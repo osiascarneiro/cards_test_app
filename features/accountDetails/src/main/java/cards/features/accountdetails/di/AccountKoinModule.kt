@@ -1,9 +1,9 @@
 package cards.features.accountdetails.di
 
 import cards.core.di.RetrofitBuilder
-import cards.features.accountdetails.networking.AccountRepository
-import cards.features.accountdetails.networking.AccountRepositoryInterface
-import cards.features.accountdetails.networking.AccountService
+import cards.features.accountdetails.data.AccountRepository
+import cards.features.accountdetails.data.AccountRepositoryInterface
+import cards.features.accountdetails.data.AccountService
 import cards.features.accountdetails.viewmodel.AccountViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.bind

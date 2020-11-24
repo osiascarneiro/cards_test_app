@@ -1,7 +1,7 @@
-package cards.features.home.networking
+package cards.features.home.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import cards.core.model.ApiResult
+import cards.core.model.RequestState
 import cards.features.home.model.Widget
 import cards.features.home.model.WidgetList
 import cards.features.home.model.WidgetType
@@ -15,18 +15,18 @@ import org.junit.Rule
 import org.junit.Test
 import retrofit2.Response
 
-class WidgetRepositoryTest {
+class HomeRepositoryTest {
 
     @Rule
     @JvmField
     val instantExecutorRule = InstantTaskExecutorRule()
 
-    lateinit var sut: WidgetRepository
+    lateinit var sut: HomeRepository
     private val service = mockk<HomeService>()
 
     @Before
     fun setup() {
-        sut = WidgetRepository(service)
+        sut = HomeRepository(service)
     }
 
     @Test
@@ -43,8 +43,8 @@ class WidgetRepositoryTest {
         //When
         val result = runBlocking { sut.getWidgets() }
         //Then
-        assert(result is ApiResult.Success)
-        assert((result as ApiResult.Success).result === widgetList)
+        assert(result is RequestState.Success)
+        assert((result as RequestState.Success).result === widgetList)
     }
 
     @Test
@@ -55,8 +55,8 @@ class WidgetRepositoryTest {
         //When
         val result = runBlocking { sut.getWidgets() }
         //Then
-        assert(result is ApiResult.Failure)
-        assert((result as ApiResult.Failure).error.message == "Error in getting widgets")
+        assert(result is RequestState.Failure)
+        assert((result as RequestState.Failure).error.message == "Error in getting widgets")
     }
 
 }

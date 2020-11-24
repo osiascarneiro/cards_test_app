@@ -1,10 +1,10 @@
 package cards.features.accountdetails.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import cards.core.model.ApiResult
+import cards.core.model.RequestState
 import cards.features.accountdetails.model.AccountDetail
 import cards.features.accountdetails.model.Balance
-import cards.features.accountdetails.networking.AccountRepositoryInterface
+import cards.features.accountdetails.data.AccountRepositoryInterface
 import cards.core.test.util.MainCoroutineRule
 import cards.core.test.util.getOrAwaitValue
 import io.mockk.coEvery
@@ -37,28 +37,28 @@ class AccountViewModelTest {
         //Given
         val accountId = "1432"
         val account = AccountDetail(Balance("", ""), emptyList())
-        val returns = ApiResult.Success(account)
+        val returns = RequestState.Success(account)
         coEvery { repository.getAccountDetail(accountId) } returns returns
         //When
         sut.accountId = accountId
         //Then
         val data = sut.accountLiveData.getOrAwaitValue()
-        assert(data is ApiResult.Success)
-        assert((data as ApiResult.Success).result === account)
+        assert(data is RequestState.Success)
+        assert((data as RequestState.Success).result === account)
     }
 
     @Test
     fun `Should return failure`() {
         //Given
         val accountId = "1432"
-        val returns = ApiResult.Failure<AccountDetail>( Error("Error in getting account"))
+        val returns = RequestState.Failure<AccountDetail>( Error("Error in getting account"))
         coEvery { repository.getAccountDetail(accountId) } returns returns
         //When
         sut.accountId = accountId
         //Then
         val data = sut.accountLiveData.getOrAwaitValue()
-        assert(data is ApiResult.Failure)
-        assert((data as ApiResult.Failure).error.message == "Error in getting account")
+        assert(data is RequestState.Failure)
+        assert((data as RequestState.Failure).error.message == "Error in getting account")
     }
 
 }

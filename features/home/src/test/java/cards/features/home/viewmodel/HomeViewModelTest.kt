@@ -1,11 +1,11 @@
 package cards.features.home.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import cards.core.model.ApiResult
+import cards.core.model.RequestState
 import cards.features.home.model.Widget
 import cards.features.home.model.WidgetList
 import cards.features.home.model.WidgetType
-import cards.features.home.networking.WidgetRepositoryInterface
+import cards.features.home.data.HomeRepositoryInterface
 import cards.core.test.util.MainCoroutineRule
 import cards.core.test.util.getOrAwaitValue
 import io.mockk.coEvery
@@ -25,7 +25,7 @@ class HomeViewModelTest {
     var mainCoroutineRule = MainCoroutineRule()
 
     lateinit var sut: HomeViewModel
-    private val repository = mockk<WidgetRepositoryInterface>()
+    private val repository = mockk<HomeRepositoryInterface>()
 
     @Test
     fun `Should return success`() {
@@ -36,27 +36,27 @@ class HomeViewModelTest {
             list.add(widget)
         }
         val widgetList = WidgetList(list)
-        val result = ApiResult.Success(widgetList)
+        val result = RequestState.Success(widgetList)
         coEvery { repository.getWidgets() } returns result
         //When
         sut = HomeViewModel(repository)
         //Then
         val liveDataResult = sut.widgetsLiveData.getOrAwaitValue()
-        assert(liveDataResult is ApiResult.Success)
-        assert((liveDataResult as ApiResult.Success).result === widgetList)
+        assert(liveDataResult is RequestState.Success)
+        assert((liveDataResult as RequestState.Success).result === widgetList)
     }
 
     @Test
     fun `Should return failure`() {
         //Given
-        val errorResult = ApiResult.Failure<WidgetList>(Error("Error in getting widgets"))
+        val errorResult = RequestState.Failure<WidgetList>(Error("Error in getting widgets"))
         coEvery { repository.getWidgets() } returns errorResult
         //When
         sut = HomeViewModel(repository)
         //Then
         val liveDataResult = sut.widgetsLiveData.getOrAwaitValue()
-        assert(liveDataResult is ApiResult.Failure)
-        assert((liveDataResult as ApiResult.Failure).error.message == "Error in getting widgets")
+        assert(liveDataResult is RequestState.Failure)
+        assert((liveDataResult as RequestState.Failure).error.message == "Error in getting widgets")
     }
 
 }

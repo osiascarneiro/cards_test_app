@@ -1,12 +1,12 @@
 package cards.features.home.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import cards.core.model.ApiResult
+import cards.core.model.RequestState
 import cards.features.home.R
 import cards.features.home.view.adapter.HomeAdapter
 import cards.features.home.viewmodel.HomeViewModel
@@ -29,14 +29,16 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         homeViewModel.widgetsLiveData.observe(requireActivity(), {
             when(it) {
-                is ApiResult.Failure -> {
-                    errorText.visibility = View.VISIBLE
-                    errorText.text = it.error.message
+                is RequestState.Failure -> {
+                    with(errorText) {
+                        visibility = View.VISIBLE
+                        text = it.error.message
+                    }
                 }
-                is ApiResult.Loading -> {
-                    loadingBar.visibility = if(it.loading) View.VISIBLE else View.GONE
+                is RequestState.Loading -> {
+                    loadingBar.isVisible = it.loading
                 }
-                is ApiResult.Success -> {
+                is RequestState.Success -> {
                     adapter.widgets = it.result.widgets
                 }
             }
@@ -45,7 +47,4 @@ class HomeFragment : Fragment() {
         widgetList.adapter = adapter
     }
 
-    companion object {
-        @JvmStatic fun newInstance() = HomeFragment()
-    }
 }

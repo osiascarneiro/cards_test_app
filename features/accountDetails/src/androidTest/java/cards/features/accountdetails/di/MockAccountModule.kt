@@ -1,8 +1,8 @@
 package cards.features.accountdetails.di
 
-import cards.features.accountdetails.networking.AccountRepositoryInterface
-import cards.features.accountdetails.networking.MockAccountRepository
-import cards.features.accountdetails.networking.MockErrorAccountRepository
+import cards.features.accountdetails.data.AccountRepositoryInterface
+import cards.features.accountdetails.data.MockAccountRepository
+import cards.features.accountdetails.data.MockErrorAccountRepository
 import cards.features.accountdetails.viewmodel.AccountViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.bind

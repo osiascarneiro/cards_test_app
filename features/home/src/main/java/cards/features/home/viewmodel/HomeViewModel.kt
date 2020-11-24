@@ -3,16 +3,16 @@ package cards.features.home.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cards.core.model.ApiResult
+import cards.core.model.RequestState
 import cards.features.home.model.WidgetList
-import cards.features.home.networking.WidgetRepositoryInterface
+import cards.features.home.data.HomeRepositoryInterface
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val repository: WidgetRepositoryInterface
+    private val repository: HomeRepositoryInterface
 ): ViewModel() {
 
-    var widgetsLiveData = MutableLiveData<ApiResult<WidgetList>>()
+    var widgetsLiveData = MutableLiveData<RequestState<WidgetList>>()
 
     init {
         getWidgets()
@@ -20,9 +20,9 @@ class HomeViewModel(
 
     private fun getWidgets() {
         viewModelScope.launch {
-            widgetsLiveData.value = ApiResult.Loading(true)
+            widgetsLiveData.value = RequestState.Loading(true)
             val response = repository.getWidgets()
-            widgetsLiveData.value = ApiResult.Loading(false)
+            widgetsLiveData.value = RequestState.Loading(false)
             widgetsLiveData.value = response
         }
     }

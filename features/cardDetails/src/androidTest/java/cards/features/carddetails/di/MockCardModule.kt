@@ -1,8 +1,8 @@
 package cards.features.carddetails.di
 
-import cards.features.carddetails.networking.CardRepositoryInterface
-import cards.features.carddetails.networking.MockCardRepository
-import cards.features.carddetails.networking.MockErrorCardRepository
+import cards.features.carddetails.data.CardRepositoryInterface
+import cards.features.carddetails.data.MockCardRepository
+import cards.features.carddetails.data.MockErrorCardRepository
 import cards.features.carddetails.viewmodel.CardViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.bind

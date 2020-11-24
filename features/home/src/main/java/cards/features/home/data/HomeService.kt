@@ -1,4 +1,4 @@
-package cards.features.home.networking
+package cards.features.home.data
 
 import cards.features.home.model.WidgetList
 import retrofit2.Response

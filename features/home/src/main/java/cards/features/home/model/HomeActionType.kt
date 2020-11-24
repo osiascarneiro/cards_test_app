@@ -16,17 +16,26 @@ sealed class HomeActionType {
     }
 
     companion object {
+        private const val IDENTIFIER_KEY = "identifier"
+        private const val CONTENT_KEY = "content"
+
+        private const val CARD_SCREEN = "CARD_SCREEN"
+        private const val CARD_ID_KEY = "cardId"
+
+        private const val STATEMENT_SCREEN = "STATEMENT_SCREEN"
+        private const val ACCOUNT_ID_KEY = "accountId"
+
         fun fromMap(action: Map<String,Any>): HomeActionType? {
             if(action.isEmpty()) return null
-            if(!action.containsKey("identifier")) throw InstantiationError("Class must have a identifier")
-            if(!action.containsKey("content")) throw InstantiationError("Class must have a content")
-            val content = action["content"] as? Map<String,Any> ?: emptyMap()
-            return when(action["identifier"] as? String) {
-                "CARD_SCREEN" -> {
-                    CardScreen(content["cardId"] as? String ?: "")
+            if(!action.containsKey(IDENTIFIER_KEY)) throw InstantiationError("Class must have a identifier")
+            if(!action.containsKey(CONTENT_KEY)) throw InstantiationError("Class must have a content")
+            val content = action[CONTENT_KEY] as? Map<String,Any> ?: emptyMap()
+            return when(action[IDENTIFIER_KEY] as? String) {
+                CARD_SCREEN -> {
+                    CardScreen(content[CARD_ID_KEY] as? String ?: "")
                 }
-                "STATEMENT_SCREEN" -> {
-                    StatementScreen(content["accountId"] as? String ?: "")
+                STATEMENT_SCREEN -> {
+                    StatementScreen(content[ACCOUNT_ID_KEY] as? String ?: "")
                 }
                 else -> {
                     null

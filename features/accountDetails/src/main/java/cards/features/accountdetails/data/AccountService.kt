@@ -1,4 +1,4 @@
-package cards.features.accountdetails.networking
+package cards.features.accountdetails.data
 
 import cards.features.accountdetails.model.AccountDetail
 import retrofit2.Response

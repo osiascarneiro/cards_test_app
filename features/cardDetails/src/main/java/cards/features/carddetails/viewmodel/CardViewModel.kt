@@ -3,16 +3,16 @@ package cards.features.carddetails.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cards.core.model.ApiResult
+import cards.core.model.RequestState
 import cards.features.carddetails.model.CardDetails
-import cards.features.carddetails.networking.CardRepositoryInterface
+import cards.features.carddetails.data.CardRepositoryInterface
 import kotlinx.coroutines.launch
 
 class CardViewModel(
     private val repository: CardRepositoryInterface
 ): ViewModel() {
 
-    val cardLiveData = MutableLiveData<ApiResult<CardDetails>>()
+    val cardLiveData = MutableLiveData<RequestState<CardDetails>>()
 
     var cardId: String? = null
         set(value) {
@@ -22,9 +22,9 @@ class CardViewModel(
 
     private fun getCardDetail(cardId: String) {
         viewModelScope.launch {
-            cardLiveData.value = ApiResult.Loading(true)
+            cardLiveData.value = RequestState.Loading(true)
             val response = repository.getCardDetail(cardId)
-            cardLiveData.value = ApiResult.Loading(false)
+            cardLiveData.value = RequestState.Loading(false)
             cardLiveData.value = response
         }
     }

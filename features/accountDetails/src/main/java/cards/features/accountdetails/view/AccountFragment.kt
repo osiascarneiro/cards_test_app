@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import cards.actions.Actions
-import cards.core.model.ApiResult
+import cards.core.model.RequestState
 import cards.features.accountdetails.R
 import cards.features.accountdetails.model.Balance
 import cards.features.accountdetails.view.adapter.TransactionsAdapter
@@ -26,17 +27,23 @@ class AccountFragment : Fragment() {
 
         accountViewModel.accountLiveData.observe(this, Observer {
             when(it) {
-                is ApiResult.Loading -> {
-                    loadingBar.visibility = if(it.loading) View.VISIBLE else View.GONE
+                is RequestState.Loading -> {
+                    loadingBar.isVisible = it.loading
                 }
-                is ApiResult.Failure -> {
-                    errorText.visibility = View.VISIBLE
-                    errorText.text = it.error.message
+                is RequestState.Failure -> {
+                    with(errorText) {
+                        visibility = View.VISIBLE
+                        text = it.error.message
+                    }
                 }
-                is ApiResult.Success -> {
-                    populateBalance(it.result.balance)
-                    transactionsAdapter.transactions = it.result.transactions
-                    transactionsAdapter.notifyDataSetChanged()
+                is RequestState.Success -> {
+                    with(it.result) {
+                        populateBalance(balance)
+                        transactionsAdapter.apply {
+                            transactions = this@with.transactions
+                            notifyDataSetChanged()
+                        }
+                    }
                 }
             }
         })

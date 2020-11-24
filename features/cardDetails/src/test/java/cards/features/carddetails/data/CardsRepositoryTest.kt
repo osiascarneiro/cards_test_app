@@ -1,7 +1,7 @@
-package cards.features.carddetails.networking
+package cards.features.carddetails.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import cards.core.model.ApiResult
+import cards.core.model.RequestState
 import cards.features.carddetails.model.CardDetails
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -37,8 +37,8 @@ class CardsRepositoryTest {
         //When
         val data = runBlocking { sut.getCardDetail(cardId) }
         //Then
-        assert(data is ApiResult.Success)
-        assert((data as ApiResult.Success).result === card)
+        assert(data is RequestState.Success)
+        assert((data as RequestState.Success).result === card)
     }
 
     @Test
@@ -50,8 +50,8 @@ class CardsRepositoryTest {
         //When
         val data = runBlocking { sut.getCardDetail(cardId) }
         //Then
-        assert(data is ApiResult.Failure)
-        assert((data as ApiResult.Failure).error.message == "Error in getting card")
+        assert(data is RequestState.Failure)
+        assert((data as RequestState.Failure).error.message == "Error in getting card")
     }
 
 }

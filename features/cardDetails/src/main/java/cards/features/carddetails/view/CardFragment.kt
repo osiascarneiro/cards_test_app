@@ -4,9 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import cards.actions.Actions
-import cards.core.model.ApiResult
+import cards.core.model.RequestState
 import cards.features.carddetails.R
 import cards.features.carddetails.model.CardDetails
 import cards.features.carddetails.viewmodel.CardViewModel
@@ -22,20 +23,29 @@ class CardFragment : Fragment() {
 
         cardViewModel.cardLiveData.observe(requireActivity(), {
             when(it) {
-                is ApiResult.Failure -> {
-                    errorText.visibility = View.VISIBLE
-                    errorText.text = it.error.message
+                is RequestState.Failure -> {
+                    with(errorText) {
+                        visibility = View.VISIBLE
+                        text = it.error.message
+                    }
                 }
-                is ApiResult.Success -> {
+                is RequestState.Success -> {
                     populateCard(it.result)
                 }
-                is ApiResult.Loading -> {
-                    loadingBar.visibility = if(it.loading) View.VISIBLE else View.GONE
+                is RequestState.Loading -> {
+                    loadingBar.isVisible = it.loading
                 }
             }
         })
 
         extractArguments()
+    }
+
+    override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_card, container, false)
     }
 
     private fun extractArguments() {
@@ -48,20 +58,10 @@ class CardFragment : Fragment() {
     private fun populateCard(card: CardDetails) {
         cardNumber.text = card.cardNumber
         cardName.text = card.cardName
-        cardExpiration.text = "Expiration ${card.expirationDate}"
-        availableLimit.text = "Limite disponível: ${card.availableLimit}"
-        totalLimit.text = "Limite total: ${card.totalLimit}"
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_card, container, false)
-    }
-
-    companion object {
-        @JvmStatic fun newInstance() = CardFragment()
+        getString(R.string.activity_title)
+        cardExpiration.text = getString(R.string.expiration_date, card.expirationDate)
+        availableLimit.text = getString(R.string.available_limit, card.availableLimit)
+        totalLimit.text = getString(R.string.total_limit, card.totalLimit)
     }
 
 }

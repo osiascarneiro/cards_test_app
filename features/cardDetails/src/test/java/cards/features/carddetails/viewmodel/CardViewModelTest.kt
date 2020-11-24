@@ -1,9 +1,9 @@
 package cards.features.carddetails.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import cards.core.model.ApiResult
+import cards.core.model.RequestState
 import cards.features.carddetails.model.CardDetails
-import cards.features.carddetails.networking.CardRepositoryInterface
+import cards.features.carddetails.data.CardRepositoryInterface
 import cards.core.test.util.MainCoroutineRule
 import cards.core.test.util.getOrAwaitValue
 import io.mockk.coEvery
@@ -36,28 +36,28 @@ class CardViewModelTest {
         //Given
         val cardId = "1432"
         val card = CardDetails("","","","","")
-        val returns = ApiResult.Success(card)
+        val returns = RequestState.Success(card)
         coEvery { repository.getCardDetail(cardId) } returns returns
         //When
         sut.cardId = cardId
         //Then
         val data = sut.cardLiveData.getOrAwaitValue()
-        assert(data is ApiResult.Success)
-        assert((data as ApiResult.Success).result === card)
+        assert(data is RequestState.Success)
+        assert((data as RequestState.Success).result === card)
     }
 
     @Test
     fun `Should return failure`() {
         //Given
         val cardId = "1432"
-        val returns = ApiResult.Failure<CardDetails>(Error("Error in getting card"))
+        val returns = RequestState.Failure<CardDetails>(Error("Error in getting card"))
         coEvery { repository.getCardDetail(cardId) } returns returns
         //When
         sut.cardId = cardId
         //Then
         val data = sut.cardLiveData.getOrAwaitValue()
-        assert(data is ApiResult.Failure)
-        assert((data as ApiResult.Failure).error.message == "Error in getting card")
+        assert(data is RequestState.Failure)
+        assert((data as RequestState.Failure).error.message == "Error in getting card")
     }
 
 }

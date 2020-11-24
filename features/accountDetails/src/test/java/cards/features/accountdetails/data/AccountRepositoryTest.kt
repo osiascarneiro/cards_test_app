@@ -1,7 +1,7 @@
-package cards.features.accountdetails.networking
+package cards.features.accountdetails.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import cards.core.model.ApiResult
+import cards.core.model.RequestState
 import cards.features.accountdetails.model.AccountDetail
 import cards.features.accountdetails.model.Balance
 import io.mockk.coEvery
@@ -38,8 +38,8 @@ class AccountRepositoryTest {
         //When
         val data = runBlocking { sut.getAccountDetail(accountId) }
         //Then
-        assert(data is ApiResult.Success)
-        assert((data as ApiResult.Success).result === account)
+        assert(data is RequestState.Success)
+        assert((data as RequestState.Success).result === account)
     }
 
     @Test
@@ -51,8 +51,8 @@ class AccountRepositoryTest {
         //When
         val data = runBlocking { sut.getAccountDetail(accountId) }
         //Then
-        assert(data is ApiResult.Failure)
-        assert((data as ApiResult.Failure).error.message == "Error in getting account")
+        assert(data is RequestState.Failure)
+        assert((data as RequestState.Failure).error.message == "Error in getting account")
     }
 
 
