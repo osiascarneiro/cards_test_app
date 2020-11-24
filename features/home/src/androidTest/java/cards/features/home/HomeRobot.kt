@@ -64,12 +64,12 @@ class HomeRobot {
     fun checkMockTitleInSecondPosition() = checkTextInPosition(1, "mock title")
 
     fun checkHomeCardViewInFirstPosition() = checkInstaceTypeInPosition(0, HomeCardView::class.java)
-    fun checkMockCardTitleInFirstPosition() = checkTextInPosition(1, "mock card title")
-    fun checkMockCardNumberInFirstPosition() = checkTextInPosition(1, "mock card number")
-    fun checkMockCardDetailsInFirstPosition() = checkTextInPosition(1, "mock card details")
+    fun checkMockCardTitleInFirstPosition() = checkTextInPosition(0, "mock card title")
+    fun checkMockCardNumberInFirstPosition() = checkTextInPosition(0, "mock card number")
+    fun checkMockCardDetailsInFirstPosition() = checkTextInPosition(0, "mock card details")
 
     fun checkHomeAccountViewInThirdPosition() = checkInstaceTypeInPosition(2, HomeAccountView::class.java)
-    fun checkMockAccountTitleInThirdPosition() = checkTextInPosition(1, "mock account title")
+    fun checkMockAccountTitleInThirdPosition() = checkTextInPosition(2, "mock account title")
     fun checkSaldoInThirdPosition() = checkTextInPosition(2, "Saldo")
     fun checkValueInThirdPosition() = checkTextInPosition(2, "R$ 50,00")
     fun checkMockAccountDetailsInThirdPosition() = checkTextInPosition(2, "mock account details")
