@@ -42,6 +42,7 @@ object TestDependencies {
     const val androidxTestRunner = "androidx.test:runner:${Versions.androidxTest}"
     const val androidxTestRule = "androidx.test:rules:${Versions.androidxTest}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
+    const val espressoIntents = "com.android.support.test.espresso:espresso-intents:${Versions.espresso}"
     const val koin = "org.koin:koin-test:${Versions.koin}"
     const val mockk = "io.mockk:mockk:${Versions.mockk}"
     const val coroutinesCoreSupport = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutinesCore}"

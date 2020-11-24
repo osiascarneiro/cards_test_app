@@ -1,15 +1,19 @@
 package cards.features.home
 
+import android.app.Instrumentation
 import android.content.Intent
+import android.content.IntentFilter
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import androidx.test.platform.app.InstrumentationRegistry
+import cards.actions.Actions
 import cards.features.home.util.CustomMatchers.atPosition
 import cards.features.home.util.CustomMatchers.withItemCount
 import cards.features.home.view.HomeActivity
@@ -23,8 +27,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.koin.core.context.GlobalContext
-import org.koin.core.context.stopKoin
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
@@ -42,9 +44,7 @@ class HomeActivityTest {
 
     @Before
     fun setup() {
-        if(GlobalContext.getOrNull() != null) {
-            stopKoin()
-        }
+
     }
 
     @After
@@ -70,6 +70,29 @@ class HomeActivityTest {
         //Account view
         onView(withId(R.id.widgetList)).check(matches(atPosition(2, allOf(instanceOf(HomeAccountView::class.java)))))
         onView(withId(R.id.widgetList)).check(matches(atPosition(2, withText("mock account title"))))
+        onView(withId(R.id.widgetList)).check(matches(atPosition(2, withText("Saldo"))))
+        onView(withId(R.id.widgetList)).check(matches(atPosition(2, withText("R$ 50,00"))))
+        onView(withId(R.id.widgetList)).check(matches(atPosition(2, withText("mock account details"))))
+    }
+
+    @Test
+    fun testChangeToCardDetails() {
+        val filter = IntentFilter(Actions.CARD_DETAILS_ACTION)
+        val am = Instrumentation.ActivityMonitor(filter, null, true)
+        InstrumentationRegistry.getInstrumentation().addMonitor(am)
+        onView(allOf(withId(R.id.actionButton), withText("mock card details"))).perform(click())
+        assert(InstrumentationRegistry.getInstrumentation().checkMonitorHit(am, 1))
+        InstrumentationRegistry.getInstrumentation().removeMonitor(am)
+    }
+
+    @Test
+    fun testChangeToAccountDetails() {
+        val filter = IntentFilter(Actions.ACCOUNT_DETAILS_ACTION)
+        val am = Instrumentation.ActivityMonitor(filter, null, true)
+        InstrumentationRegistry.getInstrumentation().addMonitor(am)
+        onView(allOf(withId(R.id.actionButton), withText("mock account details"))).perform(click())
+        assert(InstrumentationRegistry.getInstrumentation().checkMonitorHit(am, 1))
+        InstrumentationRegistry.getInstrumentation().removeMonitor(am)
     }
 
 }
