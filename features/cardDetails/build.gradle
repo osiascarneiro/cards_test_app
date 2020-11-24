@@ -42,7 +42,12 @@ dependencies {
     testImplementation TestDependencies.coroutinesCoreSupport
     testImplementation TestDependencies.coroutinesTest
     testImplementation TestDependencies.archCore
+    testImplementation project(":core:testCore")
+    androidTestImplementation project(":core:testCore")
+    androidTestImplementation TestDependencies.archCore
     androidTestImplementation TestDependencies.androidxTesting
+    androidTestImplementation TestDependencies.androidxTestRunner
+    androidTestImplementation TestDependencies.androidxTestRule
     androidTestImplementation TestDependencies.espresso
 
 

@@ -1,3 +1,4 @@
+include ':core:testCore'
 include ':core'
 include ':features:accountDetails'
 include ':features:cardDetails'

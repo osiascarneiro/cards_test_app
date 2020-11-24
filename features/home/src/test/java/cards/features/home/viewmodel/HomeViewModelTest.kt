@@ -6,8 +6,8 @@ import cards.features.home.model.Widget
 import cards.features.home.model.WidgetList
 import cards.features.home.model.WidgetType
 import cards.features.home.networking.WidgetRepositoryInterface
-import cards.features.home.util.MainCoroutineRule
-import cards.features.home.util.getOrAwaitValue
+import cards.core.test.util.MainCoroutineRule
+import cards.core.test.util.getOrAwaitValue
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi

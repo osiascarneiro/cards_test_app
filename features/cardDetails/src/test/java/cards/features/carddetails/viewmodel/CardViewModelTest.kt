@@ -4,8 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import cards.core.model.ApiResult
 import cards.features.carddetails.model.CardDetails
 import cards.features.carddetails.networking.CardRepositoryInterface
-import cards.features.carddetails.util.MainCoroutineRule
-import cards.features.carddetails.util.getOrAwaitValue
+import cards.core.test.util.MainCoroutineRule
+import cards.core.test.util.getOrAwaitValue
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -1,4 +1,4 @@
-package cards.features.carddetails.util
+package cards.core.test.util
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

@@ -1,4 +1,4 @@
-package cards.features.accountdetails.util
+package cards.core.test.util
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer

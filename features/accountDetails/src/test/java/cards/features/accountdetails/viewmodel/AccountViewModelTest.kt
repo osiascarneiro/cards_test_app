@@ -5,8 +5,8 @@ import cards.core.model.ApiResult
 import cards.features.accountdetails.model.AccountDetail
 import cards.features.accountdetails.model.Balance
 import cards.features.accountdetails.networking.AccountRepositoryInterface
-import cards.features.accountdetails.util.MainCoroutineRule
-import cards.features.accountdetails.util.getOrAwaitValue
+import cards.core.test.util.MainCoroutineRule
+import cards.core.test.util.getOrAwaitValue
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi

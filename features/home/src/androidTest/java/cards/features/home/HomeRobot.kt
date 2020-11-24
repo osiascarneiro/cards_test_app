@@ -1,98 +1,42 @@
 package cards.features.home
 
-import android.app.Instrumentation
-import android.content.IntentFilter
-import androidx.test.espresso.Espresso
-import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.platform.app.InstrumentationRegistry
 import cards.actions.Actions
-import cards.features.home.util.CustomMatchers
 import cards.features.home.view.widgets.HomeAccountView
 import cards.features.home.view.widgets.HomeCardView
 import cards.features.home.view.widgets.HomeHeaderView
-import org.hamcrest.Matchers
-import org.hamcrest.core.AllOf
+import cards.core.test.util.BaseRobot
 
 fun home(func: HomeRobot.() -> Unit) = HomeRobot().apply { func() }
 
-class HomeRobot {
+class HomeRobot: BaseRobot() {
     //Reutilizable private methods
-    private fun checkVisibilityWithId(id: Int, visibility: ViewMatchers.Visibility): ViewInteraction =
-        getViewWithId(id)
-            .check(
-                ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(visibility))
-            )
-
-    private fun checkNumberOfItensInList(count: Int): ViewInteraction = getViewWithId(R.id.widgetList)
-        .check(ViewAssertions.matches(CustomMatchers.withItemCount(count)))
-
-    private fun checkInstaceTypeInPosition(position: Int, classType: Class<*>): ViewInteraction =
-        getViewWithId(R.id.widgetList)
-            .check(
-                ViewAssertions.matches(
-                    CustomMatchers.atPosition(position, AllOf.allOf(Matchers.instanceOf(classType)))
-                )
-            )
-
-    private fun checkTextInPosition(position: Int, text: String): ViewInteraction = getViewWithId(R.id.widgetList)
-        .check(
-            ViewAssertions.matches(
-                CustomMatchers.atPosition(
-                    position,
-                    ViewMatchers.withText(text)
-                )
-            )
-        )
-
-    private fun getViewWithId(id: Int) = Espresso.onView(ViewMatchers.withId(id))
-    private fun getViewWithIdAndTitle(id: Int, title: String) = Espresso.onView(
-        AllOf.allOf(
-            ViewMatchers.withId(id),
-            ViewMatchers.withText(title)
-        )
-    )
 
     fun checkLoadingGone() = checkVisibilityWithId(R.id.loadingBar, ViewMatchers.Visibility.GONE)
     fun checkErrorGone() = checkVisibilityWithId(R.id.errorText, ViewMatchers.Visibility.GONE)
 
-    fun check3ItemsInList() = checkNumberOfItensInList(3)
+    fun check3ItemsInList() = checkNumberOfItensInList(R.id.widgetList, 3)
 
-    fun checkHomeHeaderViewInSecondPosition() = checkInstaceTypeInPosition(1, HomeHeaderView::class.java)
-    fun checkMockTitleInSecondPosition() = checkTextInPosition(1, "mock title")
+    fun checkHomeHeaderViewInSecondPosition() = checkInstaceTypeInPosition(R.id.widgetList, 1, HomeHeaderView::class.java)
+    fun checkMockTitleInSecondPosition() = checkTextInPosition(R.id.widgetList, 1, "mock title")
 
-    fun checkHomeCardViewInFirstPosition() = checkInstaceTypeInPosition(0, HomeCardView::class.java)
-    fun checkMockCardTitleInFirstPosition() = checkTextInPosition(0, "mock card title")
-    fun checkMockCardNumberInFirstPosition() = checkTextInPosition(0, "mock card number")
-    fun checkMockCardDetailsInFirstPosition() = checkTextInPosition(0, "mock card details")
+    fun checkHomeCardViewInFirstPosition() = checkInstaceTypeInPosition(R.id.widgetList, 0, HomeCardView::class.java)
+    fun checkMockCardTitleInFirstPosition() = checkTextInPosition(R.id.widgetList, 0, "mock card title")
+    fun checkMockCardNumberInFirstPosition() = checkTextInPosition(R.id.widgetList, 0, "mock card number")
+    fun checkMockCardDetailsInFirstPosition() = checkTextInPosition(R.id.widgetList, 0, "mock card details")
 
-    fun checkHomeAccountViewInThirdPosition() = checkInstaceTypeInPosition(2, HomeAccountView::class.java)
-    fun checkMockAccountTitleInThirdPosition() = checkTextInPosition(2, "mock account title")
-    fun checkSaldoInThirdPosition() = checkTextInPosition(2, "Saldo")
-    fun checkValueInThirdPosition() = checkTextInPosition(2, "R$ 50,00")
-    fun checkMockAccountDetailsInThirdPosition() = checkTextInPosition(2, "mock account details")
+    fun checkHomeAccountViewInThirdPosition() = checkInstaceTypeInPosition(R.id.widgetList, 2, HomeAccountView::class.java)
+    fun checkMockAccountTitleInThirdPosition() = checkTextInPosition(R.id.widgetList, 2, "mock account title")
+    fun checkSaldoInThirdPosition() = checkTextInPosition(R.id.widgetList, 2, "Saldo")
+    fun checkValueInThirdPosition() = checkTextInPosition(R.id.widgetList, 2, "R$ 50,00")
+    fun checkMockAccountDetailsInThirdPosition() = checkTextInPosition(R.id.widgetList, 2, "mock account details")
 
     fun performClickInCardDetailsButton() = getViewWithIdAndTitle(R.id.actionButton, "mock card details").perform(click())
     fun performClickInAccountDetailsButton() = getViewWithIdAndTitle(R.id.actionButton, "mock account details").perform(click())
 
-    fun addCardDetailsInstrumentationMonitor(): Instrumentation.ActivityMonitor {
-        val filter = IntentFilter(Actions.CARD_DETAILS_ACTION)
-        val am = Instrumentation.ActivityMonitor(filter, null, true)
-        InstrumentationRegistry.getInstrumentation().addMonitor(am)
-        return am
-    }
+    fun addCardDetailsInstrumentationMonitor() = addInstrumentationMonitor(Actions.CARD_DETAILS_ACTION)
 
-    fun addAccountDetailsInstrumentationMonitor(): Instrumentation.ActivityMonitor {
-        val filter = IntentFilter(Actions.ACCOUNT_DETAILS_ACTION)
-        val am = Instrumentation.ActivityMonitor(filter, null, true)
-        InstrumentationRegistry.getInstrumentation().addMonitor(am)
-        return am
-    }
+    fun addAccountDetailsInstrumentationMonitor() = addInstrumentationMonitor(Actions.ACCOUNT_DETAILS_ACTION)
 
-    fun checkInstrumentationMonitorHitAndRemove(am: Instrumentation.ActivityMonitor) {
-        assert(InstrumentationRegistry.getInstrumentation().checkMonitorHit(am, 1))
-        InstrumentationRegistry.getInstrumentation().removeMonitor(am)
-    }
 }

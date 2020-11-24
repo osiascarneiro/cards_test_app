@@ -1,8 +1,7 @@
-package cards.features.home.util
+package cards.core.test.util
 
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.get
 import androidx.recyclerview.widget.RecyclerView
 
 import androidx.test.espresso.matcher.BoundedMatcher
@@ -33,7 +32,7 @@ object CustomMatchers {
         if(result) return true
         if(!result && hasChild) {
             for (i in 0 until (view as ViewGroup).childCount) {
-                val resultChild = checkDescendant(view[i], itemMatcher)
+                val resultChild = checkDescendant(view.getChildAt(i), itemMatcher)
                 if(resultChild) return true
             }
             return false

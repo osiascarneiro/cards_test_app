@@ -4,9 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import cards.core.model.ApiResult
 import cards.features.accountdetails.model.AccountDetail
 import cards.features.accountdetails.model.Balance
-import cards.features.accountdetails.util.getOrAwaitValue
 import io.mockk.coEvery
-import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import okhttp3.MediaType

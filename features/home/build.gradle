@@ -17,6 +17,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    packagingOptions {
+        exclude 'META-INF/AL2.0'
+        exclude 'META-INF/LGPL2.1'
+    }
 }
 
 dependencies {
@@ -43,6 +47,8 @@ dependencies {
     testImplementation TestDependencies.coroutinesCoreSupport
     testImplementation TestDependencies.coroutinesTest
     testImplementation TestDependencies.archCore
+    testImplementation project(":core:testCore")
+    androidTestImplementation project(":core:testCore")
     androidTestImplementation TestDependencies.archCore
     androidTestImplementation TestDependencies.androidxTesting
     androidTestImplementation TestDependencies.androidxTestRunner
