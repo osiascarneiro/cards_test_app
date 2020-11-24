@@ -10,6 +10,10 @@ class AccountRobot: BaseRobot() {
     fun checkLoadingGone() = checkVisibilityWithId(R.id.loadingBar, ViewMatchers.Visibility.GONE)
     fun checkErrorGone() = checkVisibilityWithId(R.id.errorText, ViewMatchers.Visibility.GONE)
 
+    fun checkErrorVisible() = checkVisibilityWithId(R.id.errorText, ViewMatchers.Visibility.VISIBLE)
+
+    fun checkErrorText() = checkText(R.id.errorText, "Error in getting transactions")
+
     fun checkSixItemsInTransactionList() = checkNumberOfItensInList(R.id.transactions, 6)
 
     fun checkLabelBalanceTitleText() = checkText(R.id.labelBalance, "Saldo disponível")

@@ -1,7 +1,6 @@
 package cards.features.accountdetails
 
 import android.app.Application
-import cards.features.accountdetails.di.mockModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -13,7 +12,6 @@ class KoinTestApp: Application() {
         startKoin {
             androidLogger()
             androidContext(this@KoinTestApp)
-            modules(mockModule)
         }
     }
 
