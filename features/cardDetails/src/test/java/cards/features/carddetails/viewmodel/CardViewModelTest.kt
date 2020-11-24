@@ -6,6 +6,7 @@ import cards.features.carddetails.model.CardDetails
 import cards.features.carddetails.data.CardRepositoryInterface
 import cards.core.test.util.MainCoroutineRule
 import cards.core.test.util.getOrAwaitValue
+import cards.features.mock.CardsMock
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -35,22 +36,24 @@ class CardViewModelTest {
     fun `Should return success`() {
         //Given
         val cardId = "1432"
-        val card = CardDetails("","","","","")
-        val returns = RequestState.Success(card)
+        val returns = CardsMock.createSuccessRequestState()
         coEvery { repository.getCardDetail(cardId) } returns returns
         //When
         sut.cardId = cardId
         //Then
         val data = sut.cardLiveData.getOrAwaitValue()
-        assert(data is RequestState.Success)
-        assert((data as RequestState.Success).result === card)
+        assert((data as RequestState.Success).result.cardNumber == "431")
+        assert(data.result.cardName == "asdas")
+        assert(data.result.availableLimit == "123,00")
+        assert(data.result.totalLimit == "200,00")
+        assert(data.result.expirationDate == "11/11")
     }
 
     @Test
     fun `Should return failure`() {
         //Given
         val cardId = "1432"
-        val returns = RequestState.Failure<CardDetails>(Error("Error in getting card"))
+        val returns = CardsMock.createFailureRequestState()
         coEvery { repository.getCardDetail(cardId) } returns returns
         //When
         sut.cardId = cardId

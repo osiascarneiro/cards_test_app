@@ -8,6 +8,7 @@ import cards.features.home.model.WidgetType
 import cards.features.home.data.HomeRepositoryInterface
 import cards.core.test.util.MainCoroutineRule
 import cards.core.test.util.getOrAwaitValue
+import cards.features.home.mock.HomeMocks
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -30,26 +31,20 @@ class HomeViewModelTest {
     @Test
     fun `Should return success`() {
         //Given
-        val list = ArrayList<Widget>()
-        for(i in 0..10) {
-            val widget = Widget(WidgetType.HOME_CARD, emptyMap())
-            list.add(widget)
-        }
-        val widgetList = WidgetList(list)
-        val result = RequestState.Success(widgetList)
+        val result = HomeMocks.createSuccessRequestState()
         coEvery { repository.getWidgets() } returns result
         //When
         sut = HomeViewModel(repository)
         //Then
         val liveDataResult = sut.widgetsLiveData.getOrAwaitValue()
         assert(liveDataResult is RequestState.Success)
-        assert((liveDataResult as RequestState.Success).result === widgetList)
+        assert((liveDataResult as RequestState.Success).result.widgets.size == 11)
     }
 
     @Test
     fun `Should return failure`() {
         //Given
-        val errorResult = RequestState.Failure<WidgetList>(Error("Error in getting widgets"))
+        val errorResult = HomeMocks.createFailureRequestState()
         coEvery { repository.getWidgets() } returns errorResult
         //When
         sut = HomeViewModel(repository)

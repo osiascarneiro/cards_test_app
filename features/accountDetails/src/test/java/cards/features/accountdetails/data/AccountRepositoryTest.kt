@@ -2,6 +2,7 @@ package cards.features.accountdetails.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import cards.core.model.RequestState
+import cards.features.accountdetails.mock.AccountMocks
 import cards.features.accountdetails.model.AccountDetail
 import cards.features.accountdetails.model.Balance
 import io.mockk.coEvery
@@ -32,21 +33,22 @@ class AccountRepositoryTest {
     fun `Should return success`() {
         //Given
         val accountId = "1432"
-        val account = AccountDetail(Balance("", ""), emptyList())
-        val returns = Response.success(account)
+        val returns = AccountMocks.createSuccessResponse()
         coEvery { service.getAccountDetail(accountId) } returns returns
         //When
         val data = runBlocking { sut.getAccountDetail(accountId) }
         //Then
         assert(data is RequestState.Success)
-        assert((data as RequestState.Success).result === account)
+        assert((data as RequestState.Success).result.balance.label == "asd")
+        assert(data.result.balance.value == "123,00")
+        assert(data.result.transactions.isEmpty())
     }
 
     @Test
     fun `Should return failure`() {
         //Given
         val accountId = "1432"
-        val returns = Response.error<AccountDetail>(404, ResponseBody.create(MediaType.get("application/json"), "Error in getting account"))
+        val returns = AccountMocks.createFailureResponse()
         coEvery { service.getAccountDetail(accountId) } returns returns
         //When
         val data = runBlocking { sut.getAccountDetail(accountId) }

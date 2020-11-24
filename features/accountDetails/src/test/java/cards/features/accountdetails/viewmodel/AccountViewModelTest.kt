@@ -7,6 +7,7 @@ import cards.features.accountdetails.model.Balance
 import cards.features.accountdetails.data.AccountRepositoryInterface
 import cards.core.test.util.MainCoroutineRule
 import cards.core.test.util.getOrAwaitValue
+import cards.features.accountdetails.mock.AccountMocks
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -36,22 +37,23 @@ class AccountViewModelTest {
     fun `Should return success`() {
         //Given
         val accountId = "1432"
-        val account = AccountDetail(Balance("", ""), emptyList())
-        val returns = RequestState.Success(account)
+        val returns = AccountMocks.createSuccessRequestState()
         coEvery { repository.getAccountDetail(accountId) } returns returns
         //When
         sut.accountId = accountId
         //Then
         val data = sut.accountLiveData.getOrAwaitValue()
         assert(data is RequestState.Success)
-        assert((data as RequestState.Success).result === account)
+        assert((data as RequestState.Success).result.balance.label == "asd")
+        assert(data.result.balance.value == "123,00")
+        assert(data.result.transactions.isEmpty())
     }
 
     @Test
     fun `Should return failure`() {
         //Given
         val accountId = "1432"
-        val returns = RequestState.Failure<AccountDetail>( Error("Error in getting account"))
+        val returns = AccountMocks.createFailureRequestState()
         coEvery { repository.getAccountDetail(accountId) } returns returns
         //When
         sut.accountId = accountId
