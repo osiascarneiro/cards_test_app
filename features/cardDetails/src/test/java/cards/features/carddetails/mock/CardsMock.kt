@@ -1,4 +1,4 @@
-package cards.features.mock
+package cards.features.carddetails.mock
 
 import cards.core.model.RequestState
 import cards.features.carddetails.model.CardDetails

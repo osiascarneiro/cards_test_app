@@ -1,4 +1,4 @@
-package cards.core.test.util
+package cards.core.test
 
 import android.app.Application
 import org.koin.android.ext.koin.androidContext

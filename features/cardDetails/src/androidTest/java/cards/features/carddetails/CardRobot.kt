@@ -1,7 +1,7 @@
 package cards.features.carddetails
 
 import androidx.test.espresso.matcher.ViewMatchers
-import cards.core.test.util.BaseRobot
+import cards.core.test.robot.BaseRobot
 
 fun cardRobot(func: CardRobot.() -> Unit) = CardRobot().apply { func() }
 

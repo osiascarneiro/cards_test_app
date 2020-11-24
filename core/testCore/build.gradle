@@ -23,6 +23,7 @@ dependencies {
     implementation Dependencies.material
     implementation Dependencies.koin
 
+    implementation TestDependencies.archCore
     implementation TestDependencies.coroutinesCoreSupport
     implementation TestDependencies.coroutinesTest
     implementation TestDependencies.espresso

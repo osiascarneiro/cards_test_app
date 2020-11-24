@@ -1,25 +1,15 @@
 package cards.features.accountdetails.data
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import cards.core.model.RequestState
+import cards.core.test.base.BaseUnitTest
 import cards.features.accountdetails.mock.AccountMocks
-import cards.features.accountdetails.model.AccountDetail
-import cards.features.accountdetails.model.Balance
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
-import okhttp3.MediaType
-import okhttp3.ResponseBody
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
-import retrofit2.Response
 
-class AccountRepositoryTest {
-
-    @Rule
-    @JvmField
-    val instantExecutorRule = InstantTaskExecutorRule()
+class AccountRepositoryTest: BaseUnitTest() {
 
     lateinit var sut: AccountRepository
     private val service = mockk<AccountService>()

@@ -1,12 +1,10 @@
 package cards.features.accountdetails.viewmodel
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import cards.core.model.RequestState
-import cards.features.accountdetails.model.AccountDetail
-import cards.features.accountdetails.model.Balance
-import cards.features.accountdetails.data.AccountRepositoryInterface
-import cards.core.test.util.MainCoroutineRule
+import cards.core.test.base.BaseUnitTest
+import cards.core.test.rule.MainCoroutineRule
 import cards.core.test.util.getOrAwaitValue
+import cards.features.accountdetails.data.AccountRepositoryInterface
 import cards.features.accountdetails.mock.AccountMocks
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -15,11 +13,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class AccountViewModelTest {
-
-    @Rule
-    @JvmField
-    val instantExecutorRule = InstantTaskExecutorRule()
+class AccountViewModelTest: BaseUnitTest() {
 
     @ExperimentalCoroutinesApi
     @get:Rule

@@ -1,7 +1,7 @@
 package cards.features.accountdetails
 
 import androidx.test.espresso.matcher.ViewMatchers
-import cards.core.test.util.BaseRobot
+import cards.core.test.robot.BaseRobot
 
 fun account(func: AccountRobot.() -> Unit) = AccountRobot().apply { func() }
 

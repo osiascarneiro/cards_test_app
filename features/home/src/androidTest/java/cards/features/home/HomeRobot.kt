@@ -6,7 +6,7 @@ import cards.actions.Actions
 import cards.features.home.view.widgets.HomeAccountView
 import cards.features.home.view.widgets.HomeCardView
 import cards.features.home.view.widgets.HomeHeaderView
-import cards.core.test.util.BaseRobot
+import cards.core.test.robot.BaseRobot
 
 fun home(func: HomeRobot.() -> Unit) = HomeRobot().apply { func() }
 

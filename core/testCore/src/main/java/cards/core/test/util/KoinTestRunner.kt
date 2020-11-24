@@ -3,6 +3,7 @@ package cards.core.test.util
 import android.app.Application
 import android.content.Context
 import androidx.test.runner.AndroidJUnitRunner
+import cards.core.test.KoinTestApp
 
 class KoinTestRunner: AndroidJUnitRunner() {
 

@@ -1,24 +1,15 @@
 package cards.features.carddetails.data
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import cards.core.model.RequestState
-import cards.features.carddetails.model.CardDetails
-import cards.features.mock.CardsMock
+import cards.core.test.base.BaseUnitTest
+import cards.features.carddetails.mock.CardsMock
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
-import okhttp3.MediaType
-import okhttp3.ResponseBody
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
-import retrofit2.Response
 
-class CardsRepositoryTest {
-
-    @Rule
-    @JvmField
-    val instantExecutorRule = InstantTaskExecutorRule()
+class CardsRepositoryTest: BaseUnitTest() {
 
     lateinit var sut: CardRepository
     private val service = mockk<CardService>()

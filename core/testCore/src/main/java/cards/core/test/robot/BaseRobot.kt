@@ -1,14 +1,14 @@
-package cards.core.test.util
+package cards.core.test.robot
 
 import android.app.Instrumentation
 import android.content.IntentFilter
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.ViewInteraction
-import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.platform.app.InstrumentationRegistry
+import cards.core.test.matchers.CustomMatchers
 import org.hamcrest.Matchers
 import org.hamcrest.core.AllOf
 
@@ -27,17 +27,17 @@ open class BaseRobot {
         getViewWithId(recyclerId)
             .check(
                 matches(
-                    CustomMatchers.atPosition(position, AllOf.allOf(Matchers.instanceOf(classType)))
+                        CustomMatchers.atPosition(position, AllOf.allOf(Matchers.instanceOf(classType)))
                 )
             )
 
     protected fun checkTextInPosition(recyclerId: Int, position: Int, text: String): ViewInteraction = getViewWithId(recyclerId)
         .check(
             matches(
-                CustomMatchers.atPosition(
-                    position,
-                    ViewMatchers.withText(text)
-                )
+                    CustomMatchers.atPosition(
+                            position,
+                            withText(text)
+                    )
             )
         )
 

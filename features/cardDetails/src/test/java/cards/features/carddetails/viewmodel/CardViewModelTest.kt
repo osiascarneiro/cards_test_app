@@ -1,12 +1,11 @@
 package cards.features.carddetails.viewmodel
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import cards.core.model.RequestState
-import cards.features.carddetails.model.CardDetails
-import cards.features.carddetails.data.CardRepositoryInterface
-import cards.core.test.util.MainCoroutineRule
+import cards.core.test.base.BaseUnitTest
+import cards.core.test.rule.MainCoroutineRule
 import cards.core.test.util.getOrAwaitValue
-import cards.features.mock.CardsMock
+import cards.features.carddetails.data.CardRepositoryInterface
+import cards.features.carddetails.mock.CardsMock
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -14,11 +13,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class CardViewModelTest {
-
-    @Rule
-    @JvmField
-    val instantExecutorRule = InstantTaskExecutorRule()
+class CardViewModelTest: BaseUnitTest() {
 
     @ExperimentalCoroutinesApi
     @get:Rule

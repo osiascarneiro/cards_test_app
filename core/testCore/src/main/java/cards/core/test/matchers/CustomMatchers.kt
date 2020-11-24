@@ -1,4 +1,4 @@
-package cards.core.test.util
+package cards.core.test.matchers
 
 import android.view.View
 import android.view.ViewGroup
