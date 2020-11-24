@@ -1,5 +1,6 @@
 package cards.features.accountdetails.data
 
+import cards.core.data.safeAPICall
 import cards.core.model.RequestState
 import cards.features.accountdetails.model.AccountDetail
 import kotlinx.coroutines.CoroutineDispatcher
@@ -12,10 +13,7 @@ class AccountRepository(
 ): AccountRepositoryInterface {
 
     override suspend fun getAccountDetail(accountId: String): RequestState<AccountDetail> = withContext(dispatcher) {
-        val response = service.getAccountDetail(accountId)
-        if(response.code() != 200) { return@withContext RequestState.Failure(Error(response.errorBody()?.string())) }
-        else { response.body()?.let { return@withContext RequestState.Success(it) } }
-        RequestState.Failure(Error("Erro desconhecido"))
+        return@withContext safeAPICall { service.getAccountDetail(accountId) }
     }
 
 }
