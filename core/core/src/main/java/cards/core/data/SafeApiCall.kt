@@ -1,7 +1,6 @@
 package cards.core.data
 
 import cards.core.model.RequestState
-import org.json.JSONObject
 import retrofit2.Response
 import java.net.ConnectException
 
