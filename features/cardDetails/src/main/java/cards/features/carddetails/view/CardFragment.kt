@@ -9,14 +9,16 @@ import androidx.fragment.app.Fragment
 import cards.actions.Actions
 import cards.core.model.RequestState
 import cards.features.carddetails.R
+import cards.features.carddetails.databinding.FragmentCardBinding
 import cards.features.carddetails.model.CardDetails
 import cards.features.carddetails.viewmodel.CardViewModel
-import kotlinx.android.synthetic.main.fragment_card.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class CardFragment : Fragment() {
 
     private val cardViewModel: CardViewModel by viewModel()
+
+    private var binding: FragmentCardBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,16 +26,16 @@ class CardFragment : Fragment() {
         cardViewModel.cardLiveData.observe(requireActivity(), {
             when(it) {
                 is RequestState.Failure -> {
-                    with(errorText) {
-                        visibility = View.VISIBLE
-                        text = it.error.message
+                    with(binding?.errorText) {
+                        this?.visibility = View.VISIBLE
+                        this?.text = it.error.message
                     }
                 }
                 is RequestState.Success -> {
                     populateCard(it.result)
                 }
                 is RequestState.Loading -> {
-                    loadingBar.isVisible = it.loading
+                    binding?.loadingBar?.isVisible = it.loading
                 }
             }
         })
@@ -45,7 +47,8 @@ class CardFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_card, container, false)
+        binding = FragmentCardBinding.inflate(inflater)
+        return binding?.root
     }
 
     private fun extractArguments() {
@@ -56,12 +59,11 @@ class CardFragment : Fragment() {
     }
 
     private fun populateCard(card: CardDetails) {
-        cardNumber.text = card.cardNumber
-        cardName.text = card.cardName
-        getString(R.string.activity_title)
-        cardExpiration.text = getString(R.string.expiration_date, card.expirationDate)
-        availableLimit.text = getString(R.string.available_limit, card.availableLimit)
-        totalLimit.text = getString(R.string.total_limit, card.totalLimit)
+        binding?.cardNumber?.text = card.cardNumber
+        binding?.cardName?.text = card.cardName
+        binding?.cardExpiration?.text = getString(R.string.expiration_date, card.expirationDate)
+        binding?.availableLimit?.text = getString(R.string.available_limit, card.availableLimit)
+        binding?.totalLimit?.text = getString(R.string.total_limit, card.totalLimit)
     }
 
 }

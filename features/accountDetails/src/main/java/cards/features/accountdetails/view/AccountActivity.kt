@@ -1,12 +1,13 @@
 package cards.features.accountdetails.view
 
 import android.graphics.drawable.Drawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import cards.features.accountdetails.R
+import cards.features.accountdetails.databinding.ActivityAccountBinding
 import cards.features.accountdetails.di.module
-import kotlinx.android.synthetic.main.activity_account.*
 import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.KoinComponent
 import org.koin.core.context.loadKoinModules
@@ -20,12 +21,15 @@ class AccountActivity : AppCompatActivity(), KoinComponent {
         const val TEST_EXTRA = "test_extra_key"
     }
 
+    private lateinit var binding: ActivityAccountBinding
+
     private val isTest: Boolean
         get() = intent.getBooleanExtra(TEST_EXTRA, false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_account)
+        binding = ActivityAccountBinding.inflate(LayoutInflater.from(this))
+        setContentView(binding.root)
         configureActionBar()
         if(!isTest) loadKoinModules(module)
     }
@@ -46,13 +50,17 @@ class AccountActivity : AppCompatActivity(), KoinComponent {
     }
 
     private fun configureActionBar() {
-        setSupportActionBar(toolbar)
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
+        with(binding.toolbar) {
+            setSupportActionBar(this)
+            supportActionBar?.apply {
+                setHomeButtonEnabled(true)
+                setDisplayShowHomeEnabled(true)
+            }
 
-        toolbar.navigationIcon = obtainBackDrawable()
-        toolbar.setNavigationOnClickListener {
-            super.onBackPressed()
+            navigationIcon = obtainBackDrawable()
+            setNavigationOnClickListener {
+                super.onBackPressed()
+            }
         }
     }
 

@@ -2,11 +2,12 @@ package cards.features.carddetails.view
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import cards.features.carddetails.R
+import cards.features.carddetails.databinding.ActivityCardBinding
 import cards.features.carddetails.di.module
-import kotlinx.android.synthetic.main.activity_card.*
 import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.KoinComponent
 import org.koin.core.context.loadKoinModules
@@ -20,12 +21,15 @@ class CardActivity : AppCompatActivity(), KoinComponent {
         const val TEST_EXTRA = "test_extra_key"
     }
 
+    private lateinit var binding: ActivityCardBinding
+
     private val isTest: Boolean
         get() = intent.getBooleanExtra(TEST_EXTRA, false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_card)
+        binding = ActivityCardBinding.inflate(LayoutInflater.from(this))
+        setContentView(binding.root)
         configureActionBar()
         if(!isTest) loadKoinModules(module)
     }
@@ -46,13 +50,17 @@ class CardActivity : AppCompatActivity(), KoinComponent {
     }
 
     private fun configureActionBar() {
-        setSupportActionBar(toolbar)
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
+        with(binding.toolbar) {
+            setSupportActionBar(this)
+            supportActionBar?.apply {
+                setHomeButtonEnabled(true)
+                setDisplayShowHomeEnabled(true)
+            }
 
-        toolbar.navigationIcon = obtainBackDrawable()
-        toolbar.setNavigationOnClickListener {
-            super.onBackPressed()
+            navigationIcon = obtainBackDrawable()
+            setNavigationOnClickListener {
+                super.onBackPressed()
+            }
         }
     }
 }

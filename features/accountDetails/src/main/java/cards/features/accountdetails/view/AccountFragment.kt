@@ -9,12 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import cards.actions.Actions
 import cards.core.model.RequestState
-import cards.features.accountdetails.R
+import cards.features.accountdetails.databinding.FragmentAccountBinding
 import cards.features.accountdetails.model.Balance
 import cards.features.accountdetails.view.adapter.TransactionsAdapter
 import cards.features.accountdetails.viewmodel.AccountViewModel
-import kotlinx.android.synthetic.main.fragment_account.*
-import kotlinx.android.synthetic.main.fragment_account.view.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class AccountFragment : Fragment() {
@@ -22,18 +20,20 @@ class AccountFragment : Fragment() {
     private val accountViewModel: AccountViewModel by viewModel()
     private val transactionsAdapter = TransactionsAdapter()
 
+    private var binding: FragmentAccountBinding? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         accountViewModel.accountLiveData.observe(this, Observer {
             when(it) {
                 is RequestState.Loading -> {
-                    loadingBar.isVisible = it.loading
+                    binding?.loadingBar?.isVisible = it.loading
                 }
                 is RequestState.Failure -> {
-                    with(errorText) {
-                        visibility = View.VISIBLE
-                        text = it.error.message
+                    with(binding?.errorText) {
+                        this?.visibility = View.VISIBLE
+                        this?.text = it.error.message
                     }
                 }
                 is RequestState.Success -> {
@@ -55,14 +55,14 @@ class AccountFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_account, container, false)
-        view.transactions.adapter = transactionsAdapter
-        return view
+        binding = FragmentAccountBinding.inflate(inflater)
+        binding?.transactions?.adapter = transactionsAdapter
+        return binding?.root
     }
 
     private fun populateBalance(balance: Balance) {
-        labelBalance.text = balance.label
-        valueBalance.text = balance.value
+        binding?.labelBalance?.text = balance.label
+        binding?.valueBalance?.text = balance.value
     }
 
     private fun extractArguments() {
