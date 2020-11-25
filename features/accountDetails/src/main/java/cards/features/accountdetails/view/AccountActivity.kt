@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import cards.core.configureToolbar
 import cards.features.accountdetails.R
 import cards.features.accountdetails.databinding.ActivityAccountBinding
 import cards.features.accountdetails.di.module
@@ -30,38 +31,13 @@ class AccountActivity : AppCompatActivity(), KoinComponent {
         super.onCreate(savedInstanceState)
         binding = ActivityAccountBinding.inflate(LayoutInflater.from(this))
         setContentView(binding.root)
-        configureActionBar()
+        configureToolbar(binding.toolbar)
         if(!isTest) loadKoinModules(module)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         if(!isTest) unloadKoinModules(module)
-    }
-
-    private fun obtainBackDrawable(): Drawable? {
-        val a = theme.obtainStyledAttributes(android.R.style.Theme_Material_NoActionBar, intArrayOf(
-            R.attr.homeAsUpIndicator
-        ))
-        val attributeResourceId = a.getResourceId(0, 0)
-        val icon = ContextCompat.getDrawable(this, attributeResourceId)
-        a.recycle()
-        return icon
-    }
-
-    private fun configureActionBar() {
-        with(binding.toolbar) {
-            setSupportActionBar(this)
-            supportActionBar?.apply {
-                setHomeButtonEnabled(true)
-                setDisplayShowHomeEnabled(true)
-            }
-
-            navigationIcon = obtainBackDrawable()
-            setNavigationOnClickListener {
-                super.onBackPressed()
-            }
-        }
     }
 
 }

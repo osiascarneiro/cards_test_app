@@ -1,11 +1,9 @@
 package cards.features.carddetails.view
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import cards.features.carddetails.R
+import cards.core.configureToolbar
 import cards.features.carddetails.databinding.ActivityCardBinding
 import cards.features.carddetails.di.module
 import org.koin.core.component.KoinApiExtension
@@ -30,7 +28,7 @@ class CardActivity : AppCompatActivity(), KoinComponent {
         super.onCreate(savedInstanceState)
         binding = ActivityCardBinding.inflate(LayoutInflater.from(this))
         setContentView(binding.root)
-        configureActionBar()
+        configureToolbar(binding.toolbar)
         if(!isTest) loadKoinModules(module)
     }
 
@@ -39,28 +37,4 @@ class CardActivity : AppCompatActivity(), KoinComponent {
         if(!isTest) unloadKoinModules(module)
     }
 
-    private fun obtainBackDrawable(): Drawable? {
-        val a = theme.obtainStyledAttributes(android.R.style.Theme_Material_NoActionBar, intArrayOf(
-            R.attr.homeAsUpIndicator
-        ))
-        val attributeResourceId = a.getResourceId(0, 0)
-        val icon = ContextCompat.getDrawable(this, attributeResourceId)
-        a.recycle()
-        return icon
-    }
-
-    private fun configureActionBar() {
-        with(binding.toolbar) {
-            setSupportActionBar(this)
-            supportActionBar?.apply {
-                setHomeButtonEnabled(true)
-                setDisplayShowHomeEnabled(true)
-            }
-
-            navigationIcon = obtainBackDrawable()
-            setNavigationOnClickListener {
-                super.onBackPressed()
-            }
-        }
-    }
 }

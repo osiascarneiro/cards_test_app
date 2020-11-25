@@ -22,4 +22,7 @@ dependencies {
     implementation Dependencies.kotlinStandardLibrary
     implementation Dependencies.retrofit
     implementation Dependencies.gsonConverter
+    implementation Dependencies.appCompat
+    implementation Dependencies.androidxCore
+    implementation Dependencies.lifecycle
 }

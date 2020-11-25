@@ -28,6 +28,7 @@ class HomeActivityTest: BaseTest() {
     fun tearDown() {
         scenario?.close()
         unloadKoinModules(mockModule)
+        unloadKoinModules(mockErrorModule)
     }
 
     @Test

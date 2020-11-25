@@ -25,8 +25,7 @@ suspend fun<T: Any> safeAPICall(call: suspend () -> Response<T>) : RequestState<
         val error = response.errorBody()?.string()
 
         error?.let{
-            val message = JSONObject(it).optString("message", "Something went wrong")
-            return RequestState.Failure(Error(message))
+            return RequestState.Failure(Error(it))
 
         }
         return RequestState.Failure(Error("Something went wrong. Please try again."))
