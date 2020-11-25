@@ -9,7 +9,7 @@ import org.hamcrest.Description
 import org.hamcrest.Matcher
 
 object CustomMatchers {
-
+    //Credits to https://stackoverflow.com/a/34795431
     fun atPosition(position: Int, itemMatcher: Matcher<View?>): Matcher<View?> {
         return object : BoundedMatcher<View?, RecyclerView>(RecyclerView::class.java) {
             override fun describeTo(description: Description) {
