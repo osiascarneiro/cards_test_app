@@ -1,7 +1,9 @@
 package cards.features.home.view.widgets
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import cards.features.home.R
@@ -27,7 +29,11 @@ class HomeCardView(context: Context): BaseWidget(context) {
             cardNumber.text = cardContent.cardNumber
             actionButton.text = cardContent.button.title
             actionButton.setOnClickListener {
-                cardContent.button.action?.intent(context)?.let { context.startActivity(it) }
+                try {
+                    cardContent.button.action?.intent(context)?.let { context.startActivity(it) }
+                } catch (e: ActivityNotFoundException) {
+                    Toast.makeText(context, "Em breve", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
