@@ -2,10 +2,10 @@ package cards.features.home.view.widgets
 
 import android.content.Context
 import android.view.ViewGroup
-import android.widget.FrameLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import cards.features.home.model.Widget
 
-abstract class BaseWidget(context: Context): FrameLayout(context) {
+abstract class BaseWidget(context: Context): ConstraintLayout(context) {
 
     init {
         layoutParams = LayoutParams(

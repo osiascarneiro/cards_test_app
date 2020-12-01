@@ -11,7 +11,7 @@ class HomeHeaderView(context: Context): BaseWidget(context) {
     private lateinit var binding: HomeHeaderViewBinding
 
     override fun buildView(widget: Widget) {
-        binding = HomeHeaderViewBinding.inflate(LayoutInflater.from(context), this, true)
+        binding = HomeHeaderViewBinding.inflate(LayoutInflater.from(context), this)
         val header = HeaderContent.fromMap(widget.content)
         binding.titleText.text = header.title
     }
