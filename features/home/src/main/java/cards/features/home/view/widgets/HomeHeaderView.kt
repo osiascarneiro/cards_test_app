@@ -6,7 +6,7 @@ import cards.features.home.databinding.HomeHeaderViewBinding
 import cards.features.home.model.HeaderContent
 import cards.features.home.model.Widget
 
-class HomeHeaderView(widget: Widget, context: Context): BaseWidget(widget, context) {
+class HomeHeaderView(context: Context): BaseWidget(context) {
 
     private lateinit var binding: HomeHeaderViewBinding
 

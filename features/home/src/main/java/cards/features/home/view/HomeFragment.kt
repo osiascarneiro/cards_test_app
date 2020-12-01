@@ -15,7 +15,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class HomeFragment : Fragment() {
 
     private val homeViewModel: HomeViewModel by viewModel()
-    private val adapter = HomeAdapter(emptyList())
+    private val adapter = HomeAdapter()
 
     private var binding: FragmentHomeBinding? = null
 

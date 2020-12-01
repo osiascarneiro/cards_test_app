@@ -1,32 +1,44 @@
 package cards.features.home.view.adapter
 
+import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.recyclerview.widget.RecyclerView
 import cards.features.home.model.Widget
-import cards.features.home.view.factory.WidgetFactory
+import cards.features.home.model.WidgetType
+import cards.features.home.view.widgets.BaseWidget
+import cards.features.home.view.widgets.HomeAccountView
+import cards.features.home.view.widgets.HomeCardView
+import cards.features.home.view.widgets.HomeHeaderView
+import java.lang.UnsupportedOperationException
 
-class HomeAdapter(var widgets: List<Widget>): RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
+class HomeAdapter: RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder = HomeViewHolder(
-        FrameLayout(parent.context)
-    )
+    //Filtering null identifiers
+    var widgets: List<Widget> = emptyList()
+        set(value) {
+            field = value.filter { it.identifier != null }
+        }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
+        val view = when(viewType) {
+            WidgetType.HOME_HEADER.value -> HomeHeaderView(parent.context)
+            WidgetType.HOME_STATEMENT.value -> HomeAccountView(parent.context)
+            WidgetType.HOME_CARD.value -> HomeCardView(parent.context)
+            //Identifier not mapped, shoudn't happen
+            else -> throw UnsupportedOperationException("Identifier not mapped")
+        }
+        return HomeViewHolder(view)
+    }
+
+    override fun getItemViewType(position: Int): Int = widgets[position].identifier!!.value
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         val widget = widgets[position]
-        holder.view.removeAllViews()
-        holder.view.addView(WidgetFactory.getWidget(widget, holder.view.context))
+        (holder.view as? BaseWidget)?.buildView(widget)
     }
 
     override fun getItemCount(): Int = widgets.count()
 
-    inner class HomeViewHolder(val view: FrameLayout): RecyclerView.ViewHolder(view) {
-        init {
-            view.layoutParams = FrameLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-        }
-    }
+    inner class HomeViewHolder(val view: View): RecyclerView.ViewHolder(view)
 
 }

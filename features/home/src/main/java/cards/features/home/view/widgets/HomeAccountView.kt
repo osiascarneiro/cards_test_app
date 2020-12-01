@@ -6,7 +6,7 @@ import cards.features.home.databinding.HomeAccountViewBinding
 import cards.features.home.model.AccountContent
 import cards.features.home.model.Widget
 
-class HomeAccountView(widget: Widget, context: Context): BaseWidget(widget, context) {
+class HomeAccountView(context: Context): BaseWidget(context) {
 
     private lateinit var binding: HomeAccountViewBinding
 
