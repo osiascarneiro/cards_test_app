@@ -1,16 +1,10 @@
 package cards.features.home.view.adapter
 
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import cards.features.home.model.Widget
-import cards.features.home.model.WidgetType
 import cards.features.home.view.factory.WidgetFactory
 import cards.features.home.view.widgets.BaseWidget
-import cards.features.home.view.widgets.HomeAccountView
-import cards.features.home.view.widgets.HomeCardView
-import cards.features.home.view.widgets.HomeHeaderView
-import java.lang.UnsupportedOperationException
 
 class HomeAdapter: RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
@@ -30,11 +24,11 @@ class HomeAdapter: RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         val widget = widgets[position]
-        (holder.view as? BaseWidget)?.buildView(widget)
+        holder.view.buildView(widget)
     }
 
     override fun getItemCount(): Int = widgets.count()
 
-    inner class HomeViewHolder(val view: View): RecyclerView.ViewHolder(view)
+    inner class HomeViewHolder(val view: BaseWidget): RecyclerView.ViewHolder(view)
 
 }
