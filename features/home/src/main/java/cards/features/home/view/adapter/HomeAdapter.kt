@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import cards.features.home.model.Widget
 import cards.features.home.model.WidgetType
+import cards.features.home.view.factory.WidgetFactory
 import cards.features.home.view.widgets.BaseWidget
 import cards.features.home.view.widgets.HomeAccountView
 import cards.features.home.view.widgets.HomeCardView
@@ -20,13 +21,8 @@ class HomeAdapter: RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
-        val view = when(viewType) {
-            WidgetType.HOME_HEADER.value -> HomeHeaderView(parent.context)
-            WidgetType.HOME_STATEMENT.value -> HomeAccountView(parent.context)
-            WidgetType.HOME_CARD.value -> HomeCardView(parent.context)
-            //Identifier not mapped, shoudn't happen
-            else -> throw UnsupportedOperationException("Identifier not mapped")
-        }
+        val view = WidgetFactory.getWidget(viewType, parent.context)
+                        ?: throw UnsupportedOperationException("Identifier not mapped")
         return HomeViewHolder(view)
     }
 

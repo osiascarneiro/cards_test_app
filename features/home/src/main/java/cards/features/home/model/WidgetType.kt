@@ -8,6 +8,17 @@ enum class WidgetType(val value: Int) {
     @SerializedName("HOME_CARD_WIDGET")
     HOME_CARD(2),
     @SerializedName("HOME_STATEMENT_WIDGET")
-    HOME_STATEMENT(3)
+    HOME_STATEMENT(3);
+
+    companion object {
+        fun valueOf(value: Int): WidgetType? {
+            return when(value) {
+                HOME_HEADER.value -> HOME_HEADER
+                HOME_CARD.value -> HOME_CARD
+                HOME_STATEMENT.value -> HOME_STATEMENT
+                else -> null
+            }
+        }
+    }
 
 }
